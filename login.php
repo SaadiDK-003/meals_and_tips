@@ -55,6 +55,9 @@ if (isLoggedin()) {
         </div>
     </div>
 
+
+
+    <?php include 'includes/external_js.php'; ?>
 </body>
 
 </html>

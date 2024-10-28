@@ -11,12 +11,14 @@ if (isLoggedin()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= TITLE ?> | Register</title>
-    <?php include_once 'includes/external_css.php'; ?>
+    <?php include 'includes/external_css.php'; ?>
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 
 <body id="register">
 
+
+    <?php include 'includes/external_js.php'; ?>
 </body>
 
 </html>

@@ -1,8 +1,33 @@
+@import "fonts";
+
 body {
+  font-family: var(--ff-inter);
+  header {
+    background-color: lightslategrey;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .container {
+      .nav {
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+      }
+    }
+  }
   &#login {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
   }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--ff-openSans);
 }
