@@ -35,67 +35,33 @@ function login($email, $pwd)
 function register($POST)
 {
     global $db;
-    $name = $POST['name'];
     $username = $POST['username'];
     $email = $POST['email'];
-    $phone = $POST['phone'];
     $pwd = $POST['password'];
-    $r_pwd = $POST['re_password'];
-    $user_type = $POST['user_type'];
-    $dob = $POST['dob'];
-    $gender = $POST['gender'];
-    $city = $POST['city'];
+    $role = $POST['role'];
     // EMPTY VARIABLES
     $response = '';
-    $user_type_ = '';
-    $diseases = null;
-    $certificate = null;
-    $experience = null;
-    $checkin_time = null;
-    $checkout_time = null;
-    $weekend = 'no';
-
-    if ($user_type == 'patient') {
-        $user_type_ = 'Patient';
-        $diseases = $POST['diseases'];
-    }
-    if ($user_type == 'doctor') {
-        $user_type_ = 'Doctor';
-        $certificate = $POST['certificate'];
-        $experience = $POST['experience'];
-        $checkin_time = $POST['checkin_time'];
-        $checkout_time = $POST['checkout_time'];
-        $weekend = $_POST['weekend_available'];
-    }
 
     $checkEmail = $db->query("SELECT email FROM `users` WHERE `email`='$email'");
-    $phone_length = strlen($phone);
+
     $pwd_length = strlen($pwd);
     if (mysqli_num_rows($checkEmail) > 0) :
         $response = '<h6 class="text-center alert alert-danger">Email Already Exist.</h6>';
     else :
-        if ($phone_length < 10) :
-            $response = '<h6 class="text-center alert alert-danger">Phone length must be 10.</h6>';
+        if ($pwd_length < 6) :
+            $response = '<h6 class="text-center alert alert-danger">Password length must be 6 characters long.</h6>';
         else :
-            if ($pwd_length < 6) :
-                $response = '<h6 class="text-center alert alert-danger">Password length must be 6 characters long.</h6>';
-            else :
-                if ($pwd != $r_pwd) :
-                    $response = '<h6 class="text-center alert alert-danger">Password & Confirm Password do not match.</h6>';
-                else :
-                    $pwd = md5($pwd);
-                    $insertQ = $db->query("INSERT INTO `users` (name,username,email,password,phone,diseases,certificate,experience,role,clinic_id,checkin_time,checkout_time,weekend_available,dob,gender,city) VALUES('$name','$username','$email','$pwd','$phone','$diseases','$certificate','$experience','$user_type','1','$checkin_time','$checkout_time','$weekend','$dob','$gender','$city')");
-                    if ($insertQ) {
-                        $response = '<h6 class="text-center alert alert-success">' . $user_type_ . ' registered successfully.</h6>
+            $pwd = md5($pwd);
+            $insertQ = $db->query("INSERT INTO `users` (username,email,password,role) VALUES('$username','$email','$pwd','$role')");
+            if ($insertQ) {
+                $response = '<h6 class="text-center alert alert-success">' . $role . ' registered successfully.</h6>
                 <script>
                     setTimeout(function(){
                         window.location.href = "./login.php";
                     },1800);
                 </script>
                 ';
-                    }
-                endif;
-            endif;
+            }
         endif;
     endif;
 
