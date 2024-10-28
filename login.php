@@ -17,6 +17,44 @@ if (isLoggedin()) {
 
 <body id="login">
 
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-3 mx-auto">
+                <?php
+                if (isset($_POST['email']) && isset($_POST['password'])):
+                    echo login($_POST['email'], $_POST['password']);
+                endif;
+                ?>
+                <form action="" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="text-center">Login</h2>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="form-group">
+                                <button type="submit" name="submit" id="submit" class="btn btn-primary d-block ms-auto">
+                                    LOGIN
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

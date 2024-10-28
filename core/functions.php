@@ -18,7 +18,7 @@ function login($email, $pwd)
     if (mysqli_num_rows($loginQ) > 0) {
         $fetchID = mysqli_fetch_object($loginQ);
         $_SESSION['user'] = $fetchID->id;
-        $result = '<h6 class="text-center alert alert-success">Login Success, Redirecting...</h6>
+        $result = '<h6 class="text-center alert alert-success">Login success, redirecting...</h6>
         <script>
             setTimeout(function(){
                 window.location.href = "./";
@@ -26,12 +26,12 @@ function login($email, $pwd)
         </script>
         ';
     } else {
-        $result = '<h6 class="text-center alert alert-danger">Incorrect Credentials, please check them.</h6>';
+        $result = '<h6 class="text-center alert alert-danger">Incorrect credentials, please check.</h6>';
     }
     return $result;
 }
 
-// Registration for ( VISITOR AND CAFE_OWNER )
+// Registration
 function register($POST)
 {
     global $db;
