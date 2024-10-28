@@ -8,7 +8,7 @@ body {
   font-family: var(--ff-inter);
 }
 body header {
-  background-color: lightslategrey;
+  background-color: rgb(28, 115, 197);
   min-height: 60px;
   display: flex;
   align-items: center;
@@ -16,13 +16,24 @@ body header {
 }
 body header .container .nav a {
   text-decoration: none;
-  color: inherit;
+  color: #fff;
 }
 body#login {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+body footer {
+  background-color: rgb(28, 115, 197);
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
 h1,

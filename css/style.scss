@@ -3,7 +3,7 @@
 body {
   font-family: var(--ff-inter);
   header {
-    background-color: lightslategrey;
+    background-color: rgb(28, 115, 197);
     min-height: 60px;
     display: flex;
     align-items: center;
@@ -12,7 +12,7 @@ body {
       .nav {
         a {
           text-decoration: none;
-          color: inherit;
+          color: #fff;
         }
       }
     }
@@ -22,6 +22,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  footer {
+    background-color: rgb(28, 115, 197);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
   }
 }
 

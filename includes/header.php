@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-2 d-flex align-items-center justify-content-center">
                 <div class="logo">
-                    <h3 class="mb-0">LOGO</h3>
+                    <h3 class="text-white mb-0">LOGO</h3>
                 </div>
             </div>
             <div class="col-8 d-flex align-items-center justify-content-center">
@@ -21,7 +21,11 @@
             </div>
             <div class="col-2 d-flex align-items-center justify-content-center">
                 <div class="nav-buttons">
-                    <a href="login.php" class="btn btn-primary">Login</a>
+                    <?php if (isLoggedin()): ?>
+                        <a href="logout.php" class="btn btn-danger">Logout</a>
+                    <?php else: ?>
+                        <a href="login.php" class="btn btn-primary">Login</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
