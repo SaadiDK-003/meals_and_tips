@@ -4,12 +4,24 @@
   --ff-openSans: "Open Sans", sans-serif;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--ff-openSans);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
 body {
   font-family: var(--ff-inter);
 }
 body header {
   background-color: rgb(28, 115, 197);
-  min-height: 60px;
+  min-height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,6 +29,26 @@ body header {
 body header .container .nav a {
   text-decoration: none;
   color: #fff;
+}
+body#home section.hero {
+  min-height: 350px;
+  background-color: rgb(49, 49, 49);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body#home section.hero p {
+  letter-spacing: 0.8px;
+}
+body#home section.hero .meal-plan-img {
+  height: 300px;
+  overflow: hidden;
+  border-radius: 10px;
+  display: flex;
+}
+body#home section.hero .meal-plan-img img {
+  width: 100%;
+  object-fit: cover;
 }
 body#login {
   height: 100vh;
@@ -34,11 +66,4 @@ body footer {
   bottom: 0;
   left: 0;
   width: 100%;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--ff-openSans);
 }/*# sourceMappingURL=style.css.map */

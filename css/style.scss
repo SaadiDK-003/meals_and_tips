@@ -1,10 +1,24 @@
 @import "fonts";
 
+// General CSS
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--ff-openSans);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
 body {
   font-family: var(--ff-inter);
   header {
     background-color: rgb(28, 115, 197);
-    min-height: 60px;
+    min-height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,6 +31,32 @@ body {
       }
     }
   }
+  // HOME PAGE
+  &#home {
+    section {
+      &.hero {
+        min-height: 350px;
+        background-color: rgb(49, 49, 49);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        p {
+          letter-spacing: 0.8px;
+        }
+        .meal-plan-img {
+          height: 300px;
+          overflow: hidden;
+          border-radius: 10px;
+          display: flex;
+          img {
+            width: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+  // LOGIN PAGE
   &#login {
     height: 100vh;
     display: flex;
@@ -35,11 +75,4 @@ body {
     left: 0;
     width: 100%;
   }
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--ff-openSans);
 }
