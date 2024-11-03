@@ -173,3 +173,14 @@ function forgetPassword($email, $phone)
     }
     return $msg;
 }
+
+function get_categories($table)
+{
+    global $db;
+    $cat_Q = $db->query("SELECT * FROM `$table`");
+    $options = '';
+    while ($cat = mysqli_fetch_object($cat_Q)):
+        $options .= '<option value="' . $cat->id . '">' . $cat->category_name . '</option>';
+    endwhile;
+    return $options;
+}

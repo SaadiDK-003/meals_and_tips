@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2024 at 10:55 PM
+-- Generation Time: Nov 03, 2024 at 11:31 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -32,10 +32,13 @@ r.ingredients,
 r.instructions,
 r.recipe_status,
 u.id AS 'user_id',
-u.username
+u.username,
+c.id AS 'cat_id',
+c.category_name
 FROM recipes r
 INNER JOIN users u
-WHERE r.nutritionist_id=u.id$$
+INNER JOIN categories c
+WHERE r.nutritionist_id=u.id AND r.cat_id=c.id$$
 
 DELIMITER ;
 
@@ -71,6 +74,7 @@ CREATE TABLE `recipes` (
   `ingredients` text NOT NULL,
   `instructions` text NOT NULL,
   `nutritionist_id` int(11) NOT NULL,
+  `cat_id` int(11) NOT NULL,
   `recipe_status` enum('0','1') NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -78,9 +82,10 @@ CREATE TABLE `recipes` (
 -- Dumping data for table `recipes`
 --
 
-INSERT INTO `recipes` (`id`, `recipe_title`, `ingredients`, `instructions`, `nutritionist_id`, `recipe_status`) VALUES
-(1, 'Chickpea & Quinoa Grain Bowl', '1 cup cooked quinoa,½ cup cherry tomatoes, halved', 'It seems grain bowls have as many variations as stars in the sky, and there is no wrong way to build one! We prefer to keep things classic and simple in this bowl with hummus, quinoa, avocado and loads of veggies!', 3, '0'),
-(2, 'test_recipe', '1 cup salt, 2 cup oil', 'Stir hummus, roasted red pepper, lemon juice and water in a bowl. Add more water to reach desired consistency for dressing. Add parsley, salt and pepper and stir to combine. Serve with the grain bowl.', 3, '0');
+INSERT INTO `recipes` (`id`, `recipe_title`, `ingredients`, `instructions`, `nutritionist_id`, `cat_id`, `recipe_status`) VALUES
+(1, 'Chickpea & Quinoa Grain Bowl', '1 cup cooked quinoa,½ cup cherry tomatoes, halved', 'It seems grain bowls have as many variations as stars in the sky, and there is no wrong way to build one! We prefer to keep things classic and simple in this bowl with hummus, quinoa, avocado and loads of veggies!', 3, 1, '0'),
+(2, 'test_recipe', '1 cup salt, 2 cup oil', 'Stir hummus, roasted red pepper, lemon juice and water in a bowl. Add more water to reach desired consistency for dressing. Add parsley, salt and pepper and stir to combine. Serve with the grain bowl.', 3, 1, '0'),
+(3, 'test_recipe_1', '1 cup salt, 2 cup oil, etc...', 'lorem ipsum...', 3, 2, '0');
 
 -- --------------------------------------------------------
 
@@ -123,7 +128,8 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `recipes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `nutritionist_id` (`nutritionist_id`);
+  ADD KEY `nutritionist_id` (`nutritionist_id`),
+  ADD KEY `recipes_ibfk_2` (`cat_id`);
 
 --
 -- Indexes for table `users`
@@ -145,7 +151,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -161,7 +167,8 @@ ALTER TABLE `users`
 -- Constraints for table `recipes`
 --
 ALTER TABLE `recipes`
-  ADD CONSTRAINT `recipes_ibfk_1` FOREIGN KEY (`nutritionist_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `recipes_ibfk_1` FOREIGN KEY (`nutritionist_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `recipes_ibfk_2` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

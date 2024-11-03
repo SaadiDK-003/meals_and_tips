@@ -28,21 +28,29 @@ if ($userRole != 'nutritionist') {
             </div>
         </div>
         <div class="row content-wrapper">
-            <div class="col-12 col-md-6 mx-auto mt-4">
+            <div class="col-12 col-md-8 mx-auto mt-4">
                 <span class="showCatMsg"></span>
                 <form id="recipe-form">
                     <div class="row">
-                        <div class="col-12 col-md-6 mb-3">
+                        <div class="col-12 col-md-4 mb-3">
                             <div class="form-group">
                                 <label for="recipe-title">Recipe Title</label>
                                 <input type="text" autofocus name="recipe_title" id="recipe-title" required class="form-control">
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 mb-3">
+                        <div class="col-12 col-md-4 mb-3">
                             <div class="form-group">
                                 <label for="ingredients">Ingredients</label>
                                 <input type="text" name="ingredients" id="ingredients" class="form-control" placeholder="abc,xyz like that...">
                                 <code>Add Ingredients separate by commas</code>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 mb-3">
+                            <div class="form-group">
+                                <label for="category_type">Select Category</label>
+                                <select type="text" name="category_type" id="category_type" required class="form-select">
+                                    <?= get_categories('categories'); ?>
+                                </select>
                             </div>
                         </div>
                         <div class="col-12 mb-3">
