@@ -1,9 +1,9 @@
 @import "fonts";
 
-// General CSS
+// General CSS Start
 :root {
   --bg-custom-green: #a7ba2f;
-  --bg-custom-green-dark: #99aa2b;
+  --bg-custom-green-dark: #93a328;
 }
 
 h1,
@@ -22,11 +22,26 @@ img {
   background-color: var(--bg-custom-green);
   color: #fff;
 }
-.btn-custom-green:hover {
+.btn-custom-green:hover,
+.btn-custom-green:focus-visible,
+.btn-custom-green:active {
   background-color: var(--bg-custom-green-dark);
   // color: #fff;
 }
 
+.line-clamp-1 {
+  display: -webkit-box;
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+textarea {
+  resize: none;
+}
+
+// General CSS End
 
 body {
   font-family: var(--ff-inter);
