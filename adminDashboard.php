@@ -23,37 +23,11 @@ if ($userRole != 'admin') {
     <div class="container mx-auto mt-5">
         <div class="row">
             <div class="tab-buttons col-12 d-flex gap-3 justify-content-center">
-                <a href="#!" class="btn btn-primary active">Add Categories</a>
                 <a href="#!" class="btn btn-secondary">Approve Recipes</a>
+                <a href="#!" class="btn btn-primary active">Add Categories</a>
             </div>
         </div>
         <div class="row content-wrapper">
-            <div class="col-12 col-md-3 mx-auto mt-4 d-none">
-                <span class="showCatMsg"></span>
-                <form id="cat-form" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-12 mb-3">
-                            <div class="form-group">
-                                <label for="category-name">Category Name</label>
-                                <input type="text" autofocus name="category_name" id="category-name" required class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-12 mb-3 d-none">
-                            <div class="form-group">
-                                <label for="category-img">Category Image</label>
-                                <input type="file" name="category_img" id="category-img" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <button type="submit" name="category_submit" id="category-submit" class="btn btn-custom-green d-block ms-auto">
-                                    Add Category
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
             <div class="col-12 mx-auto mt-4">
                 <?php
                 $getRecipe_Q = $db->query("CALL `get_recipes_list`()");
@@ -95,6 +69,32 @@ if ($userRole != 'admin') {
                 <?php endif;
                 $getRecipe_Q->close();
                 $db->next_result(); ?>
+            </div>
+            <div class="col-12 col-md-3 mx-auto mt-4 d-none">
+                <span class="showCatMsg"></span>
+                <form id="cat-form" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="form-group">
+                                <label for="category-name">Category Name</label>
+                                <input type="text" autofocus name="category_name" id="category-name" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3 d-none">
+                            <div class="form-group">
+                                <label for="category-img">Category Image</label>
+                                <input type="file" name="category_img" id="category-img" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <button type="submit" name="category_submit" id="category-submit" class="btn btn-custom-green d-block ms-auto">
+                                    Add Category
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
