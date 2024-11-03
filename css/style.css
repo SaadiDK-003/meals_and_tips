@@ -4,6 +4,11 @@
   --ff-openSans: "Open Sans", sans-serif;
 }
 
+:root {
+  --bg-custom-green: #a7ba2f;
+  --bg-custom-green-dark: #99aa2b;
+}
+
 h1,
 h2,
 h3,
@@ -16,12 +21,21 @@ img {
   display: block;
 }
 
+.btn-custom-green {
+  background-color: var(--bg-custom-green);
+  color: #fff;
+}
+
+.btn-custom-green:hover {
+  background-color: var(--bg-custom-green-dark);
+}
+
 body {
   font-family: var(--ff-inter);
   background-color: rgb(236, 236, 236);
 }
 body header {
-  background-color: rgb(28, 115, 197);
+  background-color: var(--bg-custom-green);
   min-height: 80px;
   display: flex;
   align-items: center;
@@ -58,7 +72,7 @@ body#login, body#register {
   justify-content: center;
 }
 body footer {
-  background-color: rgb(28, 115, 197);
+  background-color: var(--bg-custom-green);
   min-height: 80px;
   display: flex;
   align-items: center;

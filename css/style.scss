@@ -1,6 +1,10 @@
 @import "fonts";
 
 // General CSS
+:root {
+  --bg-custom-green: #a7ba2f;
+  --bg-custom-green-dark: #99aa2b;
+}
 
 h1,
 h2,
@@ -14,11 +18,21 @@ img {
   display: block;
 }
 
+.btn-custom-green {
+  background-color: var(--bg-custom-green);
+  color: #fff;
+}
+.btn-custom-green:hover {
+  background-color: var(--bg-custom-green-dark);
+  // color: #fff;
+}
+
+
 body {
   font-family: var(--ff-inter);
   background-color: rgb(236, 236, 236);
   header {
-    background-color: rgb(28, 115, 197);
+    background-color: var(--bg-custom-green);
     min-height: 80px;
     display: flex;
     align-items: center;
@@ -67,7 +81,7 @@ body {
   }
 
   footer {
-    background-color: rgb(28, 115, 197);
+    background-color: var(--bg-custom-green);
     min-height: 80px;
     display: flex;
     align-items: center;

@@ -1,5 +1,5 @@
 pdf/
-
+*.txt
 .sass-cache/
 *.css.map
 *.sass.map

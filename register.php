@@ -60,7 +60,7 @@ if (isLoggedin()) {
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group d-flex align-items-center justify-content-between">
-                                <a class="nav-link" href="login.php">LOGIN</a>
+                                <a class="btn btn-success" href="login.php">LOGIN</a>
                                 <button type="submit" name="submit" id="submit" class="btn btn-primary d-block ms-auto">
                                     REGISTER
                                 </button>
