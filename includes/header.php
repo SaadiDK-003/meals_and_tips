@@ -3,7 +3,9 @@
         <div class="row">
             <div class="col-3 d-flex align-items-center justify-content-center">
                 <div class="logo">
-                    <h3 class="text-white mb-0"><?= TITLE ?></h3>
+                    <a href="./" class="text-decoration-none">
+                        <h3 class="text-white mb-0"><?= TITLE ?></h3>
+                    </a>
                 </div>
             </div>
             <div class="col-7 d-flex align-items-center justify-content-center">
@@ -24,8 +26,8 @@
                     <?php if (isLoggedin()): ?>
                         <?php if ($userRole == 'admin'): ?>
                             <a href="./adminDashboard.php" class="btn btn-success">Dashboard</a>
-                            <?php elseif ($userRole == 'nutritionist'): ?>
-                                <a href="./nutritionistDashboard.php" class="btn btn-success">Dashboard</a>
+                        <?php elseif ($userRole == 'nutritionist'): ?>
+                            <a href="./nutritionistDashboard.php" class="btn btn-success">Dashboard</a>
                         <?php endif; ?>
                         <a href="logout.php" class="btn btn-danger">Logout</a>
                     <?php else: ?>
