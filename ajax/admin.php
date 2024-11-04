@@ -15,7 +15,11 @@ if (isset($_POST['category_name']) && !isset($_POST['del_recipe_id'])):
 endif;
 
 
-if (isset($_POST['del_recipe_id']) && !isset($_POST['category_name'])):
-    $del_id = $_POST['del_recipe_id'];
-    echo delete('recipes', $del_id);
+if (isset($_POST['upd_recipe_status']) && !isset($_POST['category_name'])):
+    $upd_recipe_status = $_POST['upd_recipe_status'];
+    $upd_recipe_id = $_POST['upd_recipe_id'];
+    $upd_recipe_Q = $db->query("UPDATE `recipes` SET `recipe_status`='$upd_recipe_status' WHERE `id`='$upd_recipe_id'");
+    if ($upd_recipe_Q):
+        echo json_encode(["status" => "d-block alert alert-success", "msg" => "Status updated successfully."]);
+    endif;
 endif;

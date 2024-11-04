@@ -29,46 +29,89 @@ if ($userRole != 'admin') {
         </div>
         <div class="row content-wrapper">
             <div class="col-12 mx-auto mt-4">
-                <?php
-                $getRecipe_Q = $db->query("CALL `get_recipes_list`()");
-                if (mysqli_num_rows($getRecipe_Q) > 0):
-                ?>
-                    <table id="example" class="align-middle text-center table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Ingredients</th>
-                                <th>Instructions</th>
-                                <th>Recipe Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while ($recipe_list = mysqli_fetch_object($getRecipe_Q)): ?>
-                                <tr>
-                                    <td><?= $recipe_list->recipe_title ?></td>
-                                    <td><?= $recipe_list->ingredients ?></td>
-                                    <td><span title="<?= $recipe_list->instructions ?>" class="line-clamp-1"><?= $recipe_list->instructions ?></span></td>
-                                    <td>
-                                        <?php if ($recipe_list->recipe_status == '0'): ?>
-                                            <span class="btn btn-secondary">in-review</span>
-                                        <?php else: ?>
-                                            <span class="btn btn-success">approved</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <a href="#!" class="btn btn-sm btn-primary">Edit</a>
-                                        <a href="#!" data-id="<?= $recipe_list->recipe_id ?>" class="btn btn-sm btn-danger btn-del">Delete</a>
-                                    </td>
-                                </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                    </table>
-                <?php else: ?>
-                    <h3 class="text-center">No Data Available.</h3>
-                <?php endif;
-                $getRecipe_Q->close();
-                $db->next_result(); ?>
+                <div class="row">
+                    <!-- In-Review Recipes List -->
+                    <div class="col-12 mb-5">
+                        <?php
+                        $getRecipe_Q = $db->query("CALL `get_recipes_list`()");
+                        if (mysqli_num_rows($getRecipe_Q) > 0):
+                        ?>
+                            <table id="example" class="align-middle text-center table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Ingredients</th>
+                                        <th>Instructions</th>
+                                        <th>Recipe Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($recipe_list = mysqli_fetch_object($getRecipe_Q)): ?>
+                                        <tr>
+                                            <td><?= $recipe_list->recipe_title ?></td>
+                                            <td><?= $recipe_list->ingredients ?></td>
+                                            <td><span title="<?= $recipe_list->instructions ?>" class="line-clamp-1"><?= $recipe_list->instructions ?></span></td>
+                                            <td>
+                                                <?php if ($recipe_list->recipe_status == '0'): ?>
+                                                    <span class="btn btn-secondary">in-review</span>
+                                                <?php else: ?>
+                                                    <span class="btn btn-success">approved</span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <a href="#!" data-id="<?= $recipe_list->recipe_id ?>" class="btn btn-sm btn-primary btn-update" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</a>
+                                                <a href="#!" data-id="<?= $recipe_list->recipe_id ?>" class="btn btn-sm btn-danger btn-del">Delete</a>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <h3 class="text-center alert alert-secondary">No Data Available.</h3>
+                        <?php endif;
+                        $getRecipe_Q->close();
+                        $db->next_result(); ?>
+                    </div>
+                    <!-- Approved Recipes List -->
+                    <div class="col-12">
+                        <?php
+                        $getRecipe1_Q = $db->query("CALL `get_recipes_list_approved`()");
+                        if (mysqli_num_rows($getRecipe1_Q) > 0):
+                        ?>
+                            <table id="example1" class="align-middle text-center table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Ingredients</th>
+                                        <th>Instructions</th>
+                                        <th>Recipe Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($recipe_list_ = mysqli_fetch_object($getRecipe1_Q)): ?>
+                                        <tr>
+                                            <td><?= $recipe_list_->recipe_title ?></td>
+                                            <td><?= $recipe_list_->ingredients ?></td>
+                                            <td><span title="<?= $recipe_list_->instructions ?>" class="line-clamp-1"><?= $recipe_list_->instructions ?></span></td>
+                                            <td>
+                                                <?php if ($recipe_list_->recipe_status == '0'): ?>
+                                                    <span class="btn btn-secondary">in-review</span>
+                                                <?php else: ?>
+                                                    <span class="btn btn-success">approved</span>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <!-- <h3 class="text-center">No Data Available.</h3> -->
+                        <?php endif;
+                        $getRecipe1_Q->close();
+                        $db->next_result(); ?>
+                    </div>
+                </div>
             </div>
             <div class="col-12 col-md-3 mx-auto mt-4 d-none">
                 <span class="showCatMsg"></span>
@@ -99,6 +142,40 @@ if ($userRole != 'admin') {
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Recipe Status</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="update_recipe_status">
+                    <div class="modal-body">
+                        <span id="showUpdMsg"></span>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="upd_recipe_status">Update Status</label>
+                                    <select class="form-select" name="upd_recipe_status" id="upd_recipe_status">
+                                        <option value="0">In Review</option>
+                                        <option value="1">Approved</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="upd_recipe_id" value="">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
@@ -138,6 +215,19 @@ if ($userRole != 'admin') {
                 }]
             });
 
+            new DataTable('#example1', {
+                ordering: false,
+                columns: [{
+                    width: '15%'
+                }, {
+                    width: '15%'
+                }, {
+                    width: '30%'
+                }, {
+                    width: '5%'
+                }]
+            });
+
             // Tabs Switch
             $(document).on("click", ".tab-buttons a", function(e) {
                 e.preventDefault();
@@ -166,15 +256,40 @@ if ($userRole != 'admin') {
                 });
             });
 
+            // Update Recipe Status
+
+            $(document).on("click", ".btn-update", function(e) {
+                e.preventDefault();
+                let id = $(this).data("id");
+                $("input[name='upd_recipe_id']").val(id);
+            });
+
+            $(document).on("submit", "#update_recipe_status", function(e) {
+                e.preventDefault();
+                let formData = $(this).serialize();
+                $.ajax({
+                    url: 'ajax/admin.php',
+                    method: 'post',
+                    data: formData,
+                    success: function(response) {
+                        let res = JSON.parse(response);
+                        $("#showUpdMsg").addClass(res.status).html(res.msg);
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1800);
+                    }
+                });
+            });
+
             // Delete Recipe
             $(document).on("click", ".btn-del", function(e) {
                 e.preventDefault();
                 let id = $(this).data('id');
                 $.ajax({
-                    url: 'ajax/admin.php',
+                    url: 'ajax/delete.php',
                     method: 'post',
                     data: {
-                        del_recipe_id: id
+                        del_id: id
                     },
                     success: function(response) {
                         let res = JSON.parse(response);
