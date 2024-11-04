@@ -58,7 +58,7 @@ if ($userRole != 'admin') {
                                     </td>
                                     <td>
                                         <a href="#!" class="btn btn-sm btn-primary">Edit</a>
-                                        <a href="#!" class="btn btn-sm btn-danger">Delete</a>
+                                        <a href="#!" data-id="<?= $recipe_list->recipe_id ?>" class="btn btn-sm btn-danger btn-del">Delete</a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
@@ -99,14 +99,30 @@ if ($userRole != 'admin') {
         </div>
     </div>
 
-
-
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
     <?php include_once 'includes/footer.php'; ?>
     <?php include 'includes/external_js.php'; ?>
 
 
     <script>
         $(document).ready(function() {
+
+            // Toast init
+            const toastEl = document.querySelector('.toast');
+            const toast = new bootstrap.Toast(toastEl, {
+                autohide: true,
+            });
+
+            // DataTable
             new DataTable('#example', {
                 ordering: false,
                 columns: [{
@@ -122,6 +138,7 @@ if ($userRole != 'admin') {
                 }]
             });
 
+            // Tabs Switch
             $(document).on("click", ".tab-buttons a", function(e) {
                 e.preventDefault();
                 $(this).addClass("active").siblings().removeClass("active");
@@ -145,6 +162,28 @@ if ($userRole != 'admin') {
                         setTimeout(() => {
                             window.location.reload();
                         }, 1800);
+                    }
+                });
+            });
+
+            // Delete Recipe
+            $(document).on("click", ".btn-del", function(e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                $.ajax({
+                    url: 'ajax/admin.php',
+                    method: 'post',
+                    data: {
+                        del_recipe_id: id
+                    },
+                    success: function(response) {
+                        let res = JSON.parse(response);
+                        $(".toast").addClass(res.status);
+                        $(".toast .toast-body").html(res.msg);
+                        toast.show();
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
                     }
                 })
             });

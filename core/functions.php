@@ -184,3 +184,12 @@ function get_categories($table)
     endwhile;
     return $options;
 }
+
+function delete($table, $del_ID)
+{
+    global $db;
+    $del_Q = $db->query("DELETE FROM `$table` WHERE `id`='$del_ID'");
+    if ($del_Q) {
+        return json_encode(["status" => "text-bg-danger", "msg" => "Deleted Successfully."]);
+    }
+}
