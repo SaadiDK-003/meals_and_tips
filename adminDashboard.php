@@ -17,7 +17,7 @@ if ($userRole != 'admin') {
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 
-<body>
+<body id="adminDashboard">
     <?php include_once 'includes/header.php'; ?>
 
     <div class="container mx-auto mt-5">
@@ -96,9 +96,9 @@ if ($userRole != 'admin') {
                                             <td><span title="<?= $recipe_list_->instructions ?>" class="line-clamp-1"><?= $recipe_list_->instructions ?></span></td>
                                             <td>
                                                 <?php if ($recipe_list_->recipe_status == '0'): ?>
-                                                    <span class="btn btn-secondary">in-review</span>
+                                                    <span class="btn btn-secondary">In-Review</span>
                                                 <?php else: ?>
-                                                    <span class="btn btn-success">approved</span>
+                                                    <span class="btn btn-success">Approved</span>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
@@ -113,6 +113,7 @@ if ($userRole != 'admin') {
                     </div>
                 </div>
             </div>
+            <!-- Add Categories -->
             <div class="col-12 col-md-3 mx-auto mt-4 d-none">
                 <span class="showCatMsg"></span>
                 <form id="cat-form" enctype="multipart/form-data">
@@ -160,6 +161,7 @@ if ($userRole != 'admin') {
                                     <select class="form-select" name="upd_recipe_status" id="upd_recipe_status">
                                         <option value="0">In Review</option>
                                         <option value="1">Approved</option>
+                                        <option value="2">Rejected</option>
                                     </select>
                                 </div>
                             </div>

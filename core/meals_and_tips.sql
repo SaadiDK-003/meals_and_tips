@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2024 at 11:13 PM
+-- Generation Time: Nov 06, 2024 at 11:02 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -55,6 +55,51 @@ INNER JOIN users u
 INNER JOIN categories c
 WHERE r.nutritionist_id=u.id AND r.cat_id=c.id AND r.recipe_status='1'$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_rejected` ()  SELECT
+r.id AS 'recipe_id',
+r.recipe_title,
+r.ingredients,
+r.instructions,
+r.recipe_status,
+u.id AS 'user_id',
+u.username,
+c.id AS 'cat_id',
+c.category_name
+FROM recipes r
+INNER JOIN users u
+INNER JOIN categories c
+WHERE r.nutritionist_id=u.id AND r.cat_id=c.id AND r.recipe_status='2'$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_rejected_by_id` (IN `nutritionist_id` INT)  SELECT
+r.id AS 'recipe_id',
+r.recipe_title,
+r.ingredients,
+r.instructions,
+r.recipe_status,
+u.id AS 'user_id',
+u.username,
+c.id AS 'cat_id',
+c.category_name
+FROM recipes r
+INNER JOIN users u
+INNER JOIN categories c
+WHERE r.nutritionist_id=u.id AND r.cat_id=c.id AND r.recipe_status='2' AND r.nutritionist_id=nutritionist_id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_review_or_approved_by_id` (IN `nutritionist_id` INT)  SELECT
+r.id AS 'recipe_id',
+r.recipe_title,
+r.ingredients,
+r.instructions,
+r.recipe_status,
+u.id AS 'user_id',
+u.username,
+c.id AS 'cat_id',
+c.category_name
+FROM recipes r
+INNER JOIN users u
+INNER JOIN categories c
+WHERE r.nutritionist_id=u.id AND r.cat_id=c.id AND (r.recipe_status='1' || r.recipe_status='0') AND r.nutritionist_id=nutritionist_id$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -90,16 +135,17 @@ CREATE TABLE `recipes` (
   `instructions` text NOT NULL,
   `nutritionist_id` int(11) NOT NULL,
   `cat_id` int(11) NOT NULL,
-  `recipe_status` enum('0','1') NOT NULL DEFAULT '0'
+  `recipe_status` enum('0','1','2') NOT NULL DEFAULT '0',
+  `recipe_img` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `recipes`
 --
 
-INSERT INTO `recipes` (`id`, `recipe_title`, `ingredients`, `instructions`, `nutritionist_id`, `cat_id`, `recipe_status`) VALUES
-(1, 'Chickpea & Quinoa Grain Bowl', '1 cup cooked quinoa,½ cup cherry tomatoes, halved', 'It seems grain bowls have as many variations as stars in the sky, and there is no wrong way to build one! We prefer to keep things classic and simple in this bowl with hummus, quinoa, avocado and loads of veggies!', 3, 1, '0'),
-(2, 'test_recipe', '1 cup salt, 2 cup oil', 'Stir hummus, roasted red pepper, lemon juice and water in a bowl. Add more water to reach desired consistency for dressing. Add parsley, salt and pepper and stir to combine. Serve with the grain bowl.', 3, 1, '1');
+INSERT INTO `recipes` (`id`, `recipe_title`, `ingredients`, `instructions`, `nutritionist_id`, `cat_id`, `recipe_status`, `recipe_img`) VALUES
+(2, 'test_recipe', '1 cup salt, 2 cup oil', 'Stir hummus, roasted red pepper, lemon juice and water in a bowl. Add more water to reach desired consistency for dressing. Add parsley, salt and pepper and stir to combine. Serve with the grain bowl.', 3, 1, '1', NULL),
+(6, 'test_recipe_1123', '1 cup of salt,2 cup of abc', 'anything...', 3, 2, '2', NULL);
 
 -- --------------------------------------------------------
 
@@ -165,7 +211,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`

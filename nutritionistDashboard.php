@@ -17,7 +17,7 @@ if ($userRole != 'nutritionist') {
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 
-<body>
+<body id="nutritionistDashboard">
     <?php include_once 'includes/header.php'; ?>
 
     <div class="container mx-auto mt-5">
@@ -28,48 +28,131 @@ if ($userRole != 'nutritionist') {
             </div>
         </div>
         <div class="row content-wrapper">
-            <div class="col-12 col-md-8 mx-auto mt-4">
-                <span class="showCatMsg"></span>
-                <form id="recipe-form">
-                    <div class="row">
-                        <div class="col-12 col-md-4 mb-3">
-                            <div class="form-group">
-                                <label for="recipe-title">Recipe Title</label>
-                                <input type="text" autofocus name="recipe_title" id="recipe-title" required class="form-control">
+            <!-- RECIPES SECTION -->
+            <div class="col-12 mx-auto mt-4">
+                <div class="row">
+                    <div class="col-12 col-md-8 mx-auto mt-4">
+                        <span class="showCatMsg"></span>
+                        <form id="recipe-form">
+                            <div class="row">
+                                <div class="col-12 col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="recipe-title">Recipe Title</label>
+                                        <input type="text" autofocus name="recipe_title" id="recipe-title" required class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="ingredients">Ingredients</label>
+                                        <input type="text" name="ingredients" id="ingredients" class="form-control" placeholder="abc,xyz like that...">
+                                        <code>Add Ingredients separate by commas</code>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="category_type">Select Category</label>
+                                        <select type="text" name="category_type" id="category_type" required class="form-select">
+                                            <?= get_categories('categories'); ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="instructions">Instructions</label>
+                                        <textarea rows="3" name="instructions" id="instructions" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input type="hidden" name="nutritionist_id" value="<?= $userID ?>">
+                                        <button type="submit" name="recipe_submit" id="recipe-submit" class="btn btn-custom-green d-block ms-auto">
+                                            Add Recipe
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-md-4 mb-3">
-                            <div class="form-group">
-                                <label for="ingredients">Ingredients</label>
-                                <input type="text" name="ingredients" id="ingredients" class="form-control" placeholder="abc,xyz like that...">
-                                <code>Add Ingredients separate by commas</code>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-4 mb-3">
-                            <div class="form-group">
-                                <label for="category_type">Select Category</label>
-                                <select type="text" name="category_type" id="category_type" required class="form-select">
-                                    <?= get_categories('categories'); ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 mb-3">
-                            <div class="form-group">
-                                <label for="instructions">Instructions</label>
-                                <textarea rows="3" name="instructions" id="instructions" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <input type="hidden" name="nutritionist_id" value="<?= $userID ?>">
-                                <button type="submit" name="recipe_submit" id="recipe-submit" class="btn btn-custom-green d-block ms-auto">
-                                    Add Recipe
-                                </button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
-                </form>
+                </div>
+                <div class="row mt-5">
+                    <!-- Approved Recipes List -->
+                    <div class="col-12 mb-3">
+                        <h2 class="my-3">In-Review / Approved Recipes</h2>
+                        <?php
+                        $getRecipe_Q = $db->query("CALL `get_recipes_list_review_or_approved_by_id`($userID)");
+                        if (mysqli_num_rows($getRecipe_Q) > 0):
+                        ?>
+                            <table id="example" class="align-middle table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Ingredients</th>
+                                        <th>Instructions</th>
+                                        <th>Recipe Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($recipe_list = mysqli_fetch_object($getRecipe_Q)): ?>
+                                        <tr>
+                                            <td><?= $recipe_list->recipe_title ?></td>
+                                            <td><?= $recipe_list->ingredients ?></td>
+                                            <td><span title="<?= $recipe_list->instructions ?>" class="line-clamp-1"><?= $recipe_list->instructions ?></span></td>
+                                            <td>
+                                                <?php if ($recipe_list->recipe_status == '0'): ?>
+                                                    <span class="btn btn-secondary">In-Review</span>
+                                                <?php else: ?>
+                                                    <span class="btn btn-success">Approved</span>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <h3 class="alert alert-secondary text-center">No Data Available.</h3>
+                        <?php endif;
+                        $getRecipe_Q->close();
+                        $db->next_result(); ?>
+                    </div>
+
+                    <!-- Rejected Recipes List -->
+                    <div class="col-12 mb-5">
+                        <h2 class="my-3">Rejected Recipes</h2>
+                        <?php
+                        $getRecipe1_Q = $db->query("CALL `get_recipes_list_rejected_by_id`($userID)");
+                        if (mysqli_num_rows($getRecipe1_Q) > 0):
+                        ?>
+                            <table id="example1" class="align-middle table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Ingredients</th>
+                                        <th>Instructions</th>
+                                        <th>Recipe Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($recipe_list_ = mysqli_fetch_object($getRecipe1_Q)): ?>
+                                        <tr>
+                                            <td><?= $recipe_list_->recipe_title ?></td>
+                                            <td><?= $recipe_list_->ingredients ?></td>
+                                            <td><span title="<?= $recipe_list_->instructions ?>" class="line-clamp-1"><?= $recipe_list_->instructions ?></span></td>
+                                            <td>
+                                                <span class="btn btn-danger">Rejected</span>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <h3 class="alert alert-secondary text-center">No Data Available.</h3>
+                        <?php endif;
+                        $getRecipe1_Q->close();
+                        $db->next_result(); ?>
+                    </div>
+                </div>
             </div>
+            <!-- MEAL PLAN -->
             <div class="col-12 mx-auto mt-4 d-none">
                 <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
                     <thead>
@@ -131,9 +214,23 @@ if ($userRole != 'nutritionist') {
 
     <script>
         $(document).ready(function() {
+            
             new DataTable('#example', {
                 ordering: false,
-                responsive: true
+                "columns": [{
+                    width: "12%"
+                }, null, null, {
+                    width: "10%"
+                }]
+            });
+
+            new DataTable('#example1', {
+                ordering: false,
+                "columns": [{
+                    width: "12%"
+                }, null, null, {
+                    width: "10%"
+                }]
             });
 
             $(document).on("click", ".tab-buttons a", function(e) {

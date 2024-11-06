@@ -91,6 +91,8 @@ body footer {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+body#home footer, body#adminDashboard footer {
   position: fixed;
   bottom: 0;
   left: 0;
