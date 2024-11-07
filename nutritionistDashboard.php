@@ -305,10 +305,12 @@ if ($userRole != 'nutritionist') {
                     data: formData,
                     success: function(response) {
                         let res = JSON.parse(response);
-                        $(".showCatMsg").html(res.msg).addClass(res.status);
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 1800);
+                        $(".showCatMsg").html(res.msg).addClass(res.class_);
+                        if (res.status === 'success') {
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1800);
+                        }
                     },
                     cache: false,
                     contentType: false,
