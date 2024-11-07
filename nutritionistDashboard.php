@@ -310,6 +310,10 @@ if ($userRole != 'nutritionist') {
                             setTimeout(() => {
                                 window.location.reload();
                             }, 1800);
+                        } else {
+                            setTimeout(() => {
+                                $(".showCatMsg").html('').removeClass(res.class_);
+                            }, 1500);
                         }
                     },
                     cache: false,
