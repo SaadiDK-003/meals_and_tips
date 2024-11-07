@@ -20,11 +20,12 @@ if ($userRole != 'nutritionist') {
 <body id="nutritionistDashboard">
     <?php include_once 'includes/header.php'; ?>
 
-    <div class="container mx-auto mt-5">
+    <div class="container mx-auto mt-5 min-h-800">
         <div class="row">
             <div class="tab-buttons col-12 d-flex gap-3 justify-content-center">
                 <a href="#!" class="btn btn-primary active">Add Recipes</a>
                 <a href="#!" class="btn btn-secondary">Add Meal Plan</a>
+                <a href="#!" class="btn text-white btn-custom-green">Add Educational Content</a>
             </div>
         </div>
         <div class="row content-wrapper">
@@ -33,22 +34,28 @@ if ($userRole != 'nutritionist') {
                 <div class="row">
                     <div class="col-12 col-md-8 mx-auto mt-4">
                         <span class="showCatMsg"></span>
-                        <form id="recipe-form">
+                        <form id="recipe-form" enctype="multipart/form-data">
                             <div class="row">
-                                <div class="col-12 col-md-4 mb-3">
+                                <div class="col-12 col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="recipe-title">Recipe Title</label>
                                         <input type="text" autofocus name="recipe_title" id="recipe-title" required class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-4 mb-3">
+                                <div class="col-12 col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="ingredients">Ingredients</label>
-                                        <input type="text" name="ingredients" id="ingredients" class="form-control" placeholder="abc,xyz like that...">
+                                        <input type="text" name="ingredients" id="ingredients" class="form-control" placeholder="abc,xyz like that..." required>
                                         <code>Add Ingredients separate by commas</code>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-4 mb-3">
+                                <div class="col-12 col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="recipe_img">recipe_img</label>
+                                        <input type="file" name="recipe_img" id="recipe_img" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="category_type">Select Category</label>
                                         <select type="text" name="category_type" id="category_type" required class="form-select">
@@ -59,7 +66,7 @@ if ($userRole != 'nutritionist') {
                                 <div class="col-12 mb-3">
                                     <div class="form-group">
                                         <label for="instructions">Instructions</label>
-                                        <textarea rows="3" name="instructions" id="instructions" class="form-control"></textarea>
+                                        <textarea rows="3" name="instructions" id="instructions" class="form-control" required></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -203,6 +210,53 @@ if ($userRole != 'nutritionist') {
                     </tfoot>
                 </table>
             </div>
+            <!-- Add Educational Content -->
+            <div class="col-12 mx-auto d-none">
+                <div class="row">
+                    <div class="col-12 col-md-8 mx-auto mt-5">
+                        <span class="showEduMsg"></span>
+                        <form id="edu-form">
+                            <div class="row">
+                                <div class="col-12 col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="edu-title">Title</label>
+                                        <input type="text" autofocus name="edu_title" id="edu-title" required class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="ingredients">Ingredients</label>
+                                        <input type="text" name="ingredients" id="ingredients" class="form-control" placeholder="abc,xyz like that...">
+                                        <code>Add Ingredients separate by commas</code>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="category_type">Select Category</label>
+                                        <select type="text" name="category_type" id="category_type" required class="form-select">
+                                            <?= get_categories('categories'); ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="instructions">Instructions</label>
+                                        <textarea rows="3" name="instructions" id="instructions" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input type="hidden" name="nutritionist_id" value="<?= $userID ?>">
+                                        <button type="submit" name="recipe_submit" id="recipe-submit" class="btn btn-custom-green d-block ms-auto">
+                                            Add Recipe
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -214,7 +268,7 @@ if ($userRole != 'nutritionist') {
 
     <script>
         $(document).ready(function() {
-            
+
             new DataTable('#example', {
                 ordering: false,
                 "columns": [{
@@ -244,8 +298,7 @@ if ($userRole != 'nutritionist') {
             // Category Form Submit
             $("#recipe-form").on("submit", function(e) {
                 e.preventDefault();
-                let formData = $(this).serialize();
-
+                let formData = new FormData(this);
                 $.ajax({
                     url: "ajax/nutritionist.php",
                     method: "post",
@@ -256,8 +309,11 @@ if ($userRole != 'nutritionist') {
                         setTimeout(() => {
                             window.location.reload();
                         }, 1800);
-                    }
-                })
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
             });
         });
     </script>

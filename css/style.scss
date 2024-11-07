@@ -18,14 +18,16 @@ img {
   display: block;
 }
 
-.btn-custom-green {
+.btn.btn-custom-green {
   background-color: var(--bg-custom-green);
   color: #fff;
 }
-.btn-custom-green:hover,
-.btn-custom-green:focus-visible,
-.btn-custom-green:active {
+.btn.btn-custom-green:hover,
+.btn.btn-custom-green:focus-visible,
+.btn.btn-custom-green:active,
+.btn.btn-custom-green.active {
   background-color: var(--bg-custom-green-dark);
+  border-color: var(--bg-custom-green-dark);
   // color: #fff;
 }
 
@@ -39,6 +41,10 @@ img {
 
 textarea {
   resize: none;
+}
+
+.min-h-800 {
+  min-height: 800px;
 }
 
 // General CSS End
