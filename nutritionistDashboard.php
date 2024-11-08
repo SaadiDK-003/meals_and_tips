@@ -161,54 +161,7 @@ if ($userRole != 'nutritionist') {
             </div>
             <!-- MEAL PLAN -->
             <div class="col-12 mx-auto mt-4 d-none">
-                <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011-04-25</td>
-                            <td>$320,800</td>
-                        </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                            <td>2011-07-25</td>
-                            <td>$170,750</td>
-                        </tr>
-                        <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                            <td>2009-01-12</td>
-                            <td>$86,000</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </tfoot>
-                </table>
+                <h1>Meal Plan</h1>
             </div>
             <!-- Add Educational Content -->
             <div class="col-12 mx-auto d-none">
@@ -269,24 +222,27 @@ if ($userRole != 'nutritionist') {
     <script>
         $(document).ready(function() {
 
-            new DataTable('#example', {
+            // Table Work
+            const options = {
                 ordering: false,
                 "columns": [{
                     width: "12%"
                 }, null, null, {
                     width: "10%"
                 }]
-            });
+            }
+            let tLength = $("#example").length;
+            let tLength1 = $("#example1").length;
 
-            new DataTable('#example1', {
-                ordering: false,
-                "columns": [{
-                    width: "12%"
-                }, null, null, {
-                    width: "10%"
-                }]
-            });
+            if (tLength > 0) {
+                new DataTable('#example', options);
+            }
 
+            if (tLength1 > 0) {
+                new DataTable('#example1', options);
+            }
+
+            // Tab Work
             $(document).on("click", ".tab-buttons a", function(e) {
                 e.preventDefault();
                 $(this).addClass("active").siblings().removeClass("active");

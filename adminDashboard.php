@@ -42,6 +42,7 @@ if ($userRole != 'admin') {
                                         <th>Title</th>
                                         <th>Ingredients</th>
                                         <th>Instructions</th>
+                                        <th>Recipe Image</th>
                                         <th>Recipe Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -51,7 +52,11 @@ if ($userRole != 'admin') {
                                         <tr>
                                             <td><?= $recipe_list->recipe_title ?></td>
                                             <td><?= $recipe_list->ingredients ?></td>
-                                            <td><span title="<?= $recipe_list->instructions ?>" class="line-clamp-1"><?= $recipe_list->instructions ?></span></td>
+                                            <td><span title="<?= $recipe_list->instructions ?>" class="line-clamp-1"><?= $recipe_list->instructions ?></span>
+                                            </td>
+                                            <td>
+                                                <img class="d-block mx-auto" src="img/recipe/<?= $recipe_list->recipe_img ?>" alt="recipe_img_<?= $recipe_list->recipe_id ?>" width="50" height="50">
+                                            </td>
                                             <td>
                                                 <?php if ($recipe_list->recipe_status == '0'): ?>
                                                     <span class="btn btn-secondary">in-review</span>
@@ -210,6 +215,8 @@ if ($userRole != 'admin') {
                     width: '20%'
                 }, {
                     width: '30%'
+                }, {
+                    width: '10%'
                 }, {
                     width: '10%'
                 }, {

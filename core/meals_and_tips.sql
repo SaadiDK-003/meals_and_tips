@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2024 at 11:19 AM
+-- Generation Time: Nov 08, 2024 at 11:05 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -31,6 +31,7 @@ r.recipe_title,
 r.ingredients,
 r.instructions,
 r.recipe_status,
+r.recipe_img,
 u.id AS 'user_id',
 u.username,
 c.id AS 'cat_id',
@@ -139,14 +140,6 @@ CREATE TABLE `recipes` (
   `recipe_img` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `recipes`
---
-
-INSERT INTO `recipes` (`id`, `recipe_title`, `ingredients`, `instructions`, `nutritionist_id`, `cat_id`, `recipe_status`, `recipe_img`) VALUES
-(2, 'test_recipe', '1 cup salt, 2 cup oil', 'Stir hummus, roasted red pepper, lemon juice and water in a bowl. Add more water to reach desired consistency for dressing. Add parsley, salt and pepper and stir to combine. Serve with the grain bowl.', 3, 1, '1', NULL),
-(6, 'test_recipe_1123', '1 cup of salt,2 cup of abc', 'anything...', 3, 2, '2', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -211,7 +204,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
