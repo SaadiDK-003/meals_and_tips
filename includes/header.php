@@ -14,7 +14,7 @@
                         <a class="fs-4" href="./">Home</a>
                     </li>
                     <li>
-                        <a class="fs-4" href="#!">Recipes</a>
+                        <a class="fs-4" href="./recipes_list.php">Recipes</a>
                     </li>
                     <li>
                         <a class="fs-4" href="#!">Educational Content</a>

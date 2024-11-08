@@ -33,7 +33,7 @@ if ($userRole != 'admin') {
                     <!-- In-Review Recipes List -->
                     <div class="col-12 mb-5">
                         <?php
-                        $getRecipe_Q = $db->query("CALL `get_recipes_list`()");
+                        $getRecipe_Q = $db->query("CALL `get_recipes_list_in_review`()");
                         if (mysqli_num_rows($getRecipe_Q) > 0):
                         ?>
                             <table id="example" class="align-middle text-center table table-striped table-bordered">

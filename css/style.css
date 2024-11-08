@@ -91,6 +91,41 @@ body#login, body#register {
   align-items: center;
   justify-content: center;
 }
+body#recipes_list .list-wrapper .content {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  min-height: 380px;
+  padding: 10px;
+  border-radius: 5px;
+}
+body#recipes_list .list-wrapper .content .img {
+  display: flex;
+  height: 200px;
+}
+body#recipes_list .list-wrapper .content .img img {
+  object-fit: cover;
+  border-radius: 3px;
+}
+body#recipes_list .list-wrapper .content h3 {
+  display: -webkit-box;
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 22px;
+  line-height: 30px;
+}
+body#recipes_list .list-wrapper .content p {
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 body footer {
   background-color: var(--bg-custom-green);
   min-height: 80px;
@@ -98,7 +133,7 @@ body footer {
   align-items: center;
   justify-content: center;
 }
-body#home footer, body#adminDashboard footer {
+body#home footer, body#adminDashboard footer, body#recipes_list footer {
   position: fixed;
   bottom: 0;
   left: 0;

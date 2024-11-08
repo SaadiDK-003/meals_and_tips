@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2024 at 11:05 AM
+-- Generation Time: Nov 08, 2024 at 11:05 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -25,7 +25,23 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list` ()  SELECT
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_approved` ()  SELECT
+r.id AS 'recipe_id',
+r.recipe_title,
+r.ingredients,
+r.instructions,
+r.recipe_status,
+r.recipe_img,
+u.id AS 'user_id',
+u.username,
+c.id AS 'cat_id',
+c.category_name
+FROM recipes r
+INNER JOIN users u
+INNER JOIN categories c
+WHERE r.nutritionist_id=u.id AND r.cat_id=c.id AND r.recipe_status='1'$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_in_review` ()  SELECT
 r.id AS 'recipe_id',
 r.recipe_title,
 r.ingredients,
@@ -40,21 +56,6 @@ FROM recipes r
 INNER JOIN users u
 INNER JOIN categories c
 WHERE r.nutritionist_id=u.id AND r.cat_id=c.id AND r.recipe_status='0'$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_approved` ()  SELECT
-r.id AS 'recipe_id',
-r.recipe_title,
-r.ingredients,
-r.instructions,
-r.recipe_status,
-u.id AS 'user_id',
-u.username,
-c.id AS 'cat_id',
-c.category_name
-FROM recipes r
-INNER JOIN users u
-INNER JOIN categories c
-WHERE r.nutritionist_id=u.id AND r.cat_id=c.id AND r.recipe_status='1'$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_rejected` ()  SELECT
 r.id AS 'recipe_id',
@@ -140,6 +141,13 @@ CREATE TABLE `recipes` (
   `recipe_img` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `recipes`
+--
+
+INSERT INTO `recipes` (`id`, `recipe_title`, `ingredients`, `instructions`, `nutritionist_id`, `cat_id`, `recipe_status`, `recipe_img`) VALUES
+(13, 'High-Protein Spinach Dip Is Cheesy & Delicious', '1 cup salt, 2 cup oil', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 3, 1, '1', 'recipe_.png');
+
 -- --------------------------------------------------------
 
 --
@@ -204,7 +212,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
