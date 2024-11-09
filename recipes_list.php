@@ -131,7 +131,8 @@ require_once 'core/database.php';
                 let usrID = $(this).data("usr");
                 $(this).css({
                     'pointer-events': 'none',
-                    'background-color': '#777'
+                    'background-color': '#777',
+                    'border-color': '#777'
                 });
                 $.ajax({
                     url: "ajax/recipe_details.php",
@@ -149,10 +150,11 @@ require_once 'core/database.php';
                         $(".toast-body").html(res.msg);
                         toast.show();
                         // if (res.status == 'success') {
-                        //     setTimeout(() => {
-                        //         window.location.reload();
-                        //     }, 2000);
                         // }
+                        setTimeout(() => {
+                            $(".btn-recipe-fav").removeAttr('style');
+                            // window.location.reload();
+                        }, 1000);
                     }
                 })
             });

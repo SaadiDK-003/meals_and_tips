@@ -135,7 +135,8 @@ if ($userRole == 'nutritionist') {
                 let usrID = $(this).data("usr");
                 $(this).css({
                     'pointer-events': 'none',
-                    'background-color': '#777'
+                    'background-color': '#777',
+                    'border-color': '#777'
                 });
                 $.ajax({
                     url: "ajax/delete.php",
