@@ -1,5 +1,17 @@
 @import "fonts";
 
+@mixin responsive($size) {
+  @if ($size == "desktop") {
+    @media (min-width: 768.1px) {
+      @content;
+    }
+  } @else if($size == "mobile") {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+}
+
 // General CSS Start
 :root {
   --bg-custom-green: #a7ba2f;
@@ -113,12 +125,15 @@ body {
         min-height: 380px;
         padding: 10px;
         border-radius: 5px;
+        box-shadow: 0 0 5px 3px #a1a1a133;
         .img {
           display: flex;
+          width: 100%;
           height: 200px;
           img {
             object-fit: cover;
             border-radius: 3px;
+            width: inherit;
           }
         }
         h3 {

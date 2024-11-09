@@ -101,14 +101,17 @@ body#recipes_list .list-wrapper .content {
   min-height: 380px;
   padding: 10px;
   border-radius: 5px;
+  box-shadow: 0 0 5px 3px rgba(161, 161, 161, 0.2);
 }
 body#recipes_list .list-wrapper .content .img {
   display: flex;
+  width: 100%;
   height: 200px;
 }
 body#recipes_list .list-wrapper .content .img img {
   object-fit: cover;
   border-radius: 3px;
+  width: inherit;
 }
 body#recipes_list .list-wrapper .content h3 {
   display: -webkit-box;

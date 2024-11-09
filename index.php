@@ -1,8 +1,5 @@
 <?php
 require_once 'core/database.php';
-if (!isLoggedin()) {
-    header('Location: login.php');
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

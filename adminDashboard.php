@@ -65,7 +65,7 @@ if ($userRole != 'admin') {
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <a href="#!" data-id="<?= $recipe_list->recipe_id ?>" class="btn btn-sm btn-primary btn-update" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</a>
+                                                <a href="#!" data-id="<?= $recipe_list->recipe_id ?>" class="btn btn-sm btn-primary btn-update" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
                                                 <a href="#!" data-id="<?= $recipe_list->recipe_id ?>" class="btn btn-sm btn-danger btn-del">Delete</a>
                                             </td>
                                         </tr>
@@ -149,11 +149,11 @@ if ($userRole != 'admin') {
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Recipe Status</h1>
+                    <h1 class="modal-title fs-5" id="editModalLabel">Recipe Status</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="update_recipe_status">
