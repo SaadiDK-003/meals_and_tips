@@ -106,7 +106,7 @@ if ($userRole == 'nutritionist') {
             const toast = new bootstrap.Toast(toastEl, {
                 autohide: true,
             });
-            
+
             $(".btn-recipe-details").on('click', function(e) {
                 e.preventDefault();
                 let id = $(this).data('id');
@@ -133,6 +133,10 @@ if ($userRole == 'nutritionist') {
                 e.preventDefault();
                 let id = $(this).data("id");
                 let usrID = $(this).data("usr");
+                $(this).css({
+                    'pointer-events': 'none',
+                    'background-color': '#777'
+                });
                 $.ajax({
                     url: "ajax/delete.php",
                     method: "POST",
@@ -145,13 +149,9 @@ if ($userRole == 'nutritionist') {
                         $(".toast").addClass(res.class_);
                         $(".toast-body").html(res.msg);
                         toast.show();
-                        $(".btn-recipe-fav").css({
-                            'pointer-events': 'none',
-                            'background-color': '#777'
-                        });
                         setTimeout(() => {
                             window.location.reload();
-                        }, 1800);
+                        }, 2000);
                     }
                 })
             });

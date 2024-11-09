@@ -148,9 +148,11 @@ require_once 'core/database.php';
                         $(".toast").addClass(res.class_);
                         $(".toast-body").html(res.msg);
                         toast.show();
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
+                        // if (res.status == 'success') {
+                        //     setTimeout(() => {
+                        //         window.location.reload();
+                        //     }, 2000);
+                        // }
                     }
                 })
             });
