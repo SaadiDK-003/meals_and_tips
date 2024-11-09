@@ -129,6 +129,10 @@ require_once 'core/database.php';
                 e.preventDefault();
                 let id = $(this).data("id");
                 let usrID = $(this).data("usr");
+                $(this).css({
+                    'pointer-events': 'none',
+                    'background-color': '#777'
+                });
                 $.ajax({
                     url: "ajax/recipe_details.php",
                     method: "POST",
@@ -138,16 +142,15 @@ require_once 'core/database.php';
                     },
                     success: function(response) {
                         let res = JSON.parse(response);
+                        if ($(".toast").hasClass('text-bg-danger')) {
+                            $(".toast").removeClass('text-bg-danger');
+                        }
                         $(".toast").addClass(res.class_);
                         $(".toast-body").html(res.msg);
                         toast.show();
-                        $(".btn-recipe-fav").css({
-                            'pointer-events': 'none',
-                            'background-color': '#777'
-                        });
                         setTimeout(() => {
                             window.location.reload();
-                        }, 1800);
+                        }, 2000);
                     }
                 })
             });
