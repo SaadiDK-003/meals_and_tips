@@ -34,7 +34,7 @@ require_once 'core/database.php';
                         </div>
                         <h3 class="mb-0 text-center"><?= $list_recipes->recipe_title ?></h3>
                         <p class="mb-0 text-center"><?= $list_recipes->instructions ?></p>
-                        <a href="#!" data-bs-toggle="modal" data-bs-target="#RecipeDetails" class="btn btn-primary w-100">Details</a>
+                        <a href="#!" data-id="<?= $list_recipes->recipe_id ?>" data-bs-toggle="modal" data-bs-target="#RecipeDetails" class="btn-recipe-details btn btn-primary w-100">Details</a>
                     </div>
                 </div>
             <?php endwhile;
@@ -46,7 +46,7 @@ require_once 'core/database.php';
 
     <!-- Modal -->
     <div class="modal fade" id="RecipeDetails" tabindex="-1" aria-labelledby="RecipeDetailsLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="RecipeDetailsLabel">Recipe Details</h1>
@@ -55,7 +55,12 @@ require_once 'core/database.php';
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="text-center fs-2">Details will come here...</h2>
+                            <h2 id="title" class="text-center fs-2">Details will come here...</h2>
+                            <div class="ingredients-wrapper my-4 ms-4">
+                                <h3>Ingredients</h3>
+                                <ul id="list_ingredients"></ul>
+                            </div>
+                            <p id="instructions" class="px-4"></p>
                         </div>
                     </div>
                 </div>
@@ -69,6 +74,31 @@ require_once 'core/database.php';
 
     <?php include_once 'includes/footer.php'; ?>
     <?php include 'includes/external_js.php'; ?>
+
+    <script>
+        $(document).ready(function() {
+            $(".btn-recipe-details").on('click', function(e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                $.ajax({
+                    url: 'ajax/recipe_details.php',
+                    method: 'POST',
+                    data: {
+                        recipe_id: id
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        let res = JSON.parse(response);
+                        console.log(res)
+                        $("#title").html(res.title);
+                        $("#list_ingredients").addClass('count_' + res.list_count).html(res.ingredients_list);
+                        $("#instructions").html(res.instructions);
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>

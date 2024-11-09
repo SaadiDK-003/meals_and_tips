@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2024 at 11:05 PM
+-- Generation Time: Nov 09, 2024 at 11:13 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -40,6 +40,22 @@ FROM recipes r
 INNER JOIN users u
 INNER JOIN categories c
 WHERE r.nutritionist_id=u.id AND r.cat_id=c.id AND r.recipe_status='1'$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_approved_by_recipe_id` (IN `recipe_id` INT)  SELECT
+r.id AS 'recipe_id',
+r.recipe_title,
+r.ingredients,
+r.instructions,
+r.recipe_status,
+r.recipe_img,
+u.id AS 'user_id',
+u.username,
+c.id AS 'cat_id',
+c.category_name
+FROM recipes r
+INNER JOIN users u
+INNER JOIN categories c
+WHERE r.nutritionist_id=u.id AND r.cat_id=c.id AND r.recipe_status='1' AND r.id=recipe_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_in_review` ()  SELECT
 r.id AS 'recipe_id',
@@ -146,7 +162,7 @@ CREATE TABLE `recipes` (
 --
 
 INSERT INTO `recipes` (`id`, `recipe_title`, `ingredients`, `instructions`, `nutritionist_id`, `cat_id`, `recipe_status`, `recipe_img`) VALUES
-(13, 'High-Protein Spinach Dip Is Cheesy & Delicious', '1 cup salt, 2 cup oil', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 3, 1, '1', 'recipe_.png');
+(13, 'High-Protein Spinach Dip Is Cheesy & Delicious', '1 cup salt, 2 cup oil, 1 cup salt, 2 cup oil, 1 cup salt', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 3, 1, '1', 'recipe_.png');
 
 -- --------------------------------------------------------
 
