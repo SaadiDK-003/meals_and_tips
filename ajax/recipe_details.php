@@ -35,10 +35,10 @@ if (isset($_POST['fav_id']) && !isset($_POST['recipe_id'])):
 
         $upd_fav_Q = $db->query("UPDATE `users` SET `fav_recipes`='$new_value' WHERE `id`='$usrID'");
         if ($upd_fav_Q) {
-            echo json_encode(["class_" => "text-bg-success", "msg" => "Added Successfully."]);
+            echo json_encode(["class_" => "text-bg-success", "msg" => "Added Successfully.", "status" => "success"]);
         }
     } else {
-        echo json_encode(["class_" => "text-bg-danger", "msg" => "Already Added In Your Favorite List."]);
+        echo json_encode(["class_" => "text-bg-danger", "msg" => "Already Added In Your Favorite List.", "status" => "error"]);
     }
 
 endif;

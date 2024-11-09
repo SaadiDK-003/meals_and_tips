@@ -141,6 +141,10 @@ require_once 'core/database.php';
                         $(".toast").addClass(res.class_);
                         $(".toast-body").html(res.msg);
                         toast.show();
+                        $(".btn-recipe-fav").css({
+                            'pointer-events': 'none',
+                            'background-color': '#777'
+                        });
                         setTimeout(() => {
                             window.location.reload();
                         }, 1800);
