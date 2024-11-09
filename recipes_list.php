@@ -25,19 +25,23 @@ require_once 'core/database.php';
             </div>
             <?php
             $list_recipes_Q = $db->query("CALL `get_recipes_list_approved`()");
-            while ($list_recipes = mysqli_fetch_object($list_recipes_Q)):
+            if (mysqli_num_rows($list_recipes_Q) > 0):
+                while ($list_recipes = mysqli_fetch_object($list_recipes_Q)):
             ?>
-                <div class="col-12 col-md-3 mb-4">
-                    <div class="content">
-                        <div class="img">
-                            <img src="img/recipe/<?= $list_recipes->recipe_img ?>" alt="recipe_img_<?= $list_recipes->recipe_id ?>">
+                    <div class="col-12 col-md-3 mb-4">
+                        <div class="content">
+                            <div class="img">
+                                <img src="img/recipe/<?= $list_recipes->recipe_img ?>" alt="recipe_img_<?= $list_recipes->recipe_id ?>">
+                            </div>
+                            <h3 class="mb-0 text-center"><?= $list_recipes->recipe_title ?></h3>
+                            <p class="mb-0 text-center"><?= $list_recipes->instructions ?></p>
+                            <a href="#!" data-id="<?= $list_recipes->recipe_id ?>" data-bs-toggle="modal" data-bs-target="#RecipeDetails" class="btn-recipe-details btn btn-primary w-100">Details</a>
                         </div>
-                        <h3 class="mb-0 text-center"><?= $list_recipes->recipe_title ?></h3>
-                        <p class="mb-0 text-center"><?= $list_recipes->instructions ?></p>
-                        <a href="#!" data-id="<?= $list_recipes->recipe_id ?>" data-bs-toggle="modal" data-bs-target="#RecipeDetails" class="btn-recipe-details btn btn-primary w-100">Details</a>
                     </div>
-                </div>
-            <?php endwhile;
+                <?php endwhile;
+            else: ?>
+                <h3 class="alert alert-secondary text-center">No Recipe Available Right Now.</h3>
+            <?php endif;
             $list_recipes_Q->close();
             $db->next_result(); ?>
         </div>
