@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2024 at 11:13 AM
+-- Generation Time: Nov 09, 2024 at 03:34 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -56,6 +56,23 @@ FROM recipes r
 INNER JOIN users u
 INNER JOIN categories c
 WHERE r.nutritionist_id=u.id AND r.cat_id=c.id AND r.recipe_status='1' AND r.id=recipe_id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_fav` (IN `recipe_ids` VARCHAR(255))  SELECT DISTINCT
+    r.id AS 'recipe_id',
+    r.recipe_title,
+    r.ingredients,
+    r.instructions,
+    r.recipe_status,
+    r.recipe_img,
+    u.id AS 'user_id',
+    u.username,
+    c.id AS 'cat_id',
+    c.category_name
+FROM recipes r
+INNER JOIN users u ON r.nutritionist_id = u.id
+INNER JOIN categories c ON r.cat_id = c.id
+WHERE r.recipe_status = '1'
+  AND FIND_IN_SET(r.id, recipe_ids) > 0$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_in_review` ()  SELECT
 r.id AS 'recipe_id',
@@ -162,7 +179,8 @@ CREATE TABLE `recipes` (
 --
 
 INSERT INTO `recipes` (`id`, `recipe_title`, `ingredients`, `instructions`, `nutritionist_id`, `cat_id`, `recipe_status`, `recipe_img`) VALUES
-(13, 'High-Protein Spinach Dip Is Cheesy & Delicious', '1 cup salt, 2 cup oil, 1 cup salt, 2 cup oil, 1 cup salt', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 3, 1, '1', 'recipe_.png');
+(20, 'High-Protein Spinach Dip Is Cheesy & Delicious', '1 cup salt, 2 cup oil', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 1, '1', 'Meal-Planning.jpg'),
+(21, 'High-Protein Spinach Dip', '1 cup salt, 2 cup oil', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 2, '1', 'Meal-Planning.jpg');
 
 -- --------------------------------------------------------
 
@@ -177,18 +195,19 @@ CREATE TABLE `users` (
   `phone` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `role` enum('admin','nutritionist','user') NOT NULL DEFAULT 'user',
-  `status` enum('0','1') NOT NULL DEFAULT '0'
+  `status` enum('0','1') NOT NULL DEFAULT '0',
+  `fav_recipes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`, `role`, `status`) VALUES
-(1, 'admin', 'admin@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'admin', '0'),
-(2, 'user', 'user@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'user', '0'),
-(3, 'nutritionist', 'nutritionist@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0'),
-(4, 'nutritionist1', 'nutritionist1@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0');
+INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`, `role`, `status`, `fav_recipes`) VALUES
+(1, 'admin', 'admin@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'admin', '0', NULL),
+(2, 'user', 'user@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'user', '0', NULL),
+(3, 'nutritionist', 'nutritionist@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL),
+(4, 'nutritionist1', 'nutritionist1@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL);
 
 --
 -- Indexes for dumped tables
@@ -228,7 +247,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `users`

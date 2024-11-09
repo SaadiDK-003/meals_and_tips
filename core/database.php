@@ -9,6 +9,7 @@ $userName = '';
 $userEmail = '';
 $userPhone = '';
 $userRole = '';
+$fav_recipes = '';
 if (isset($_SESSION['user'])) {
     $userID = $_SESSION['user'];
     $getUserQ = $db->query("SELECT * FROM `users` WHERE `id`='$userID'");
@@ -17,4 +18,5 @@ if (isset($_SESSION['user'])) {
     $userEmail = $userData->email;
     $userPhone = $userData->phone;
     $userRole = $userData->role;
+    $fav_recipes = $userData->fav_recipes;
 }

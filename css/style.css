@@ -91,7 +91,7 @@ body#login, body#register {
   align-items: center;
   justify-content: center;
 }
-body#recipes_list .list-wrapper .content {
+body#recipes_list .list-wrapper .content, body#userDashboard .list-wrapper .content {
   background-color: #fff;
   border: 1px solid #ddd;
   display: flex;
@@ -103,17 +103,17 @@ body#recipes_list .list-wrapper .content {
   border-radius: 5px;
   box-shadow: 0 0 5px 3px rgba(161, 161, 161, 0.2);
 }
-body#recipes_list .list-wrapper .content .img {
+body#recipes_list .list-wrapper .content .img, body#userDashboard .list-wrapper .content .img {
   display: flex;
   width: 100%;
   height: 200px;
 }
-body#recipes_list .list-wrapper .content .img img {
+body#recipes_list .list-wrapper .content .img img, body#userDashboard .list-wrapper .content .img img {
   object-fit: cover;
   border-radius: 3px;
   width: inherit;
 }
-body#recipes_list .list-wrapper .content h3 {
+body#recipes_list .list-wrapper .content h3, body#userDashboard .list-wrapper .content h3 {
   display: -webkit-box;
   line-clamp: 1;
   -webkit-line-clamp: 1;
@@ -122,17 +122,17 @@ body#recipes_list .list-wrapper .content h3 {
   font-size: 22px;
   line-height: 30px;
 }
-body#recipes_list .list-wrapper .content p {
+body#recipes_list .list-wrapper .content p, body#userDashboard .list-wrapper .content p {
   display: -webkit-box;
   line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-body#recipes_list #RecipeDetails #title {
+body#recipes_list #RecipeDetails #title, body#userDashboard #RecipeDetails #title {
   position: relative;
 }
-body#recipes_list #RecipeDetails #title::after {
+body#recipes_list #RecipeDetails #title::after, body#userDashboard #RecipeDetails #title::after {
   content: "";
   position: absolute;
   left: 0;
@@ -141,13 +141,13 @@ body#recipes_list #RecipeDetails #title::after {
   height: 2px;
   background-color: #eee;
 }
-body#recipes_list #RecipeDetails #list_ingredients {
+body#recipes_list #RecipeDetails #list_ingredients, body#userDashboard #RecipeDetails #list_ingredients {
   max-width: 350px;
 }
-body#recipes_list #RecipeDetails #list_ingredients.count_6 {
+body#recipes_list #RecipeDetails #list_ingredients.count_6, body#userDashboard #RecipeDetails #list_ingredients.count_6 {
   columns: 2;
 }
-body#recipes_list #RecipeDetails #instructions {
+body#recipes_list #RecipeDetails #instructions, body#userDashboard #RecipeDetails #instructions {
   letter-spacing: 0.8px;
 }
 body footer {
@@ -157,7 +157,7 @@ body footer {
   align-items: center;
   justify-content: center;
 }
-body#home footer, body#adminDashboard footer, body#recipes_list footer {
+body#home footer, body#adminDashboard footer, body#userDashboard footer, body#recipes_list footer {
   position: fixed;
   bottom: 0;
   left: 0;

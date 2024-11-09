@@ -35,10 +35,10 @@ require_once 'core/database.php';
                             </div>
                             <h3 class="mb-0 text-center"><?= $list_recipes->recipe_title ?></h3>
                             <p class="mb-0 text-center"><?= $list_recipes->instructions ?></p>
-                            <div class="buttons_wrapper d-flex w-100 gap-2">
+                            <div class="buttons_wrapper d-flex justify-content-center w-100 gap-2">
                                 <a href="#!" data-id="<?= $list_recipes->recipe_id ?>" data-bs-toggle="modal" data-bs-target="#RecipeDetails" class="btn-recipe-details btn btn-primary w-75">Details</a>
-                                <a href="#!" onclick="alert('work in-progress')" data-id="<?= $list_recipes->recipe_id ?>" class="btn-recipe-fav btn btn-danger w-25">
-                                    <i class="fas fa-heart"></i>
+                                <a href="#!" data-id="<?= $list_recipes->recipe_id ?>" data-usr="<?= $userID ?>" class="btn-recipe-fav btn btn-danger w-25">
+                                    <i class="fas fa-star"></i>
                                 </a>
                             </div>
                         </div>
@@ -81,11 +81,30 @@ require_once 'core/database.php';
         </div>
     </div>
 
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
     <?php include_once 'includes/footer.php'; ?>
     <?php include 'includes/external_js.php'; ?>
 
     <script>
         $(document).ready(function() {
+
+            // Toast init
+            const toastEl = document.querySelector('.toast');
+            const toast = new bootstrap.Toast(toastEl, {
+                autohide: true,
+            });
+
             $(".btn-recipe-details").on('click', function(e) {
                 e.preventDefault();
                 let id = $(this).data('id');
@@ -96,9 +115,7 @@ require_once 'core/database.php';
                         recipe_id: id
                     },
                     success: function(response) {
-                        console.log(response)
                         let res = JSON.parse(response);
-                        console.log(res)
                         $("#title").html(res.title);
                         $("#list_ingredients").addClass('count_' + res.list_count).html(res.ingredients_list);
                         $("#instructions").html(res.instructions);
@@ -106,6 +123,29 @@ require_once 'core/database.php';
                         $("#category_name").html(res.category_name);
                     }
                 });
+            });
+
+            $(".btn-recipe-fav").on("click", function(e) {
+                e.preventDefault();
+                let id = $(this).data("id");
+                let usrID = $(this).data("usr");
+                $.ajax({
+                    url: "ajax/recipe_details.php",
+                    method: "POST",
+                    data: {
+                        fav_id: id,
+                        usrID: usrID
+                    },
+                    success: function(response) {
+                        let res = JSON.parse(response);
+                        $(".toast").addClass(res.class_);
+                        $(".toast-body").html(res.msg);
+                        toast.show();
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1800);
+                    }
+                })
             });
         });
     </script>

@@ -113,7 +113,8 @@ body {
     justify-content: center;
   }
 
-  &#recipes_list {
+  &#recipes_list,
+  &#userDashboard {
     .list-wrapper {
       .content {
         background-color: #fff;
@@ -192,6 +193,7 @@ body {
   }
   &#home,
   &#adminDashboard,
+  &#userDashboard,
   &#recipes_list {
     footer {
       position: fixed;

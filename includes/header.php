@@ -28,6 +28,8 @@
                             <a href="./adminDashboard.php" class="btn btn-success">Dashboard</a>
                         <?php elseif ($userRole == 'nutritionist'): ?>
                             <a href="./nutritionistDashboard.php" class="btn btn-success">Dashboard</a>
+                        <?php else: ?>
+                            <a href="./userDashboard.php" class="btn btn-success">Dashboard</a>
                         <?php endif; ?>
                         <a href="logout.php" class="btn btn-danger">Logout</a>
                     <?php else: ?>
