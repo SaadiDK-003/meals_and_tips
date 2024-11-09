@@ -178,29 +178,29 @@ if ($userRole != 'nutritionist') {
                                 </div>
                                 <div class="col-12 col-md-4 mb-3">
                                     <div class="form-group">
-                                        <label for="ingredients">Ingredients</label>
-                                        <input type="text" name="ingredients" id="ingredients" class="form-control" placeholder="abc,xyz like that...">
+                                        <label for="edu_ingredients">Ingredients</label>
+                                        <input type="text" name="edu_ingredients" id="edu_ingredients" class="form-control" placeholder="abc,xyz like that...">
                                         <code>Add Ingredients separate by commas</code>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4 mb-3">
                                     <div class="form-group">
-                                        <label for="category_type">Select Category</label>
-                                        <select type="text" name="category_type" id="category_type" required class="form-select">
+                                        <label for="edu_category_type">Select Category</label>
+                                        <select type="text" name="edu_category_type" id="edu_category_type" required class="form-select">
                                             <?= get_categories('categories'); ?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <div class="form-group">
-                                        <label for="instructions">Instructions</label>
-                                        <textarea rows="3" name="instructions" id="instructions" class="form-control"></textarea>
+                                        <label for="edu_instructions">Instructions</label>
+                                        <textarea rows="3" name="edu_instructions" id="edu_instructions" class="form-control"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <input type="hidden" name="nutritionist_id" value="<?= $userID ?>">
-                                        <button type="submit" name="recipe_submit" id="recipe-submit" class="btn btn-custom-green d-block ms-auto">
+                                        <input type="hidden" name="edu_nutritionist_id" value="<?= $userID ?>">
+                                        <button type="submit" name="edu_submit" id="edu_submit" class="btn btn-custom-green d-block ms-auto">
                                             Add Recipe
                                         </button>
                                     </div>

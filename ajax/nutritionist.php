@@ -4,13 +4,13 @@ require_once '../core/database.php';
 $targetDir = '../img/recipe/';
 
 if (isset($_POST['recipe_title']) && isset($_POST['ingredients'])):
+
     $recipe_title = $_POST['recipe_title'];
     $ingredients = $_POST['ingredients'];
-    $instructions = $_POST['instructions'];
+    $instructions = mysqli_real_escape_string($db, $_POST['instructions']);
     $nutritionist_id = $_POST['nutritionist_id'];
     $category_id = $_POST['category_type'];
     $msg = '';
-
     if (!empty($_FILES["recipe_img"]["name"])) {
 
         $fileName = basename($_FILES["recipe_img"]["name"]);
