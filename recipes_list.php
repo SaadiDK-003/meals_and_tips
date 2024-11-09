@@ -49,7 +49,7 @@ require_once 'core/database.php';
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="RecipeDetailsLabel">Recipe Details</h1>
+                    <h1 class="modal-title fs-5" id="RecipeDetailsLabel">Recipe Details | <span id="category_name" class="text-success"></span></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -64,8 +64,8 @@ require_once 'core/database.php';
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <input type="hidden" name="upd_recipe_id" value="">
+                <div class="modal-footer justify-content-between">
+                    <span>Recipe By: <span id="nutritionist_name" class="text-secondary"></span></span>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -93,6 +93,8 @@ require_once 'core/database.php';
                         $("#title").html(res.title);
                         $("#list_ingredients").addClass('count_' + res.list_count).html(res.ingredients_list);
                         $("#instructions").html(res.instructions);
+                        $("#nutritionist_name").html(res.nutritionist);
+                        $("#category_name").html(res.category_name);
                     }
                 });
             });
