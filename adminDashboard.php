@@ -2,7 +2,7 @@
 require_once 'core/database.php';
 
 if ($userRole != 'admin') {
-    header('Location: index.php');
+    header('Location: ./');
 }
 ?>
 
