@@ -144,11 +144,37 @@ if ($userRole != 'admin') {
                         </div>
                     </div>
                 </form>
+                <!-- Category List -->
+                <div class="row mt-5">
+                    <div class="col-12 mx-auto">
+                        <table id="example2" class="align-middle table table-striped table-bordered table-responsive" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $cat_list_Q = $db->query("SELECT * FROM `categories`");
+                                while ($cat_list = mysqli_fetch_object($cat_list_Q)):
+                                ?>
+                                    <tr>
+                                        <td><?= $cat_list->category_name ?></td>
+                                        <td class="text-center">
+                                            <a href="#!" data-id="<?= $cat_list->id ?>" data-val="<?= $cat_list->category_name ?>" data-bs-toggle="modal" data-bs-target="#editCategory" class="btn btn-primary btn-sm btn-cat-edit">edit</a>
+                                            <a href="#!" data-id="<?= $cat_list->id ?>" class="btn btn-danger btn-sm btn-cat-del">delete</a>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal | Recipe Status Update -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered">
             <div class="modal-content">
@@ -174,6 +200,36 @@ if ($userRole != 'admin') {
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="upd_recipe_id" value="">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal | Category Update -->
+    <div class="modal fade" id="editCategory" tabindex="-1" aria-labelledby="editCategoryLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editCategoryLabel">Update Category</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="update_cat">
+                    <div class="modal-body">
+                        <span id="showUpdCatMsg"></span>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="upd_cat">Update Category</label>
+                                    <input type="text" name="upd_cat" id="upd_cat" class="form-control" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="upd_cat_id" value="">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
@@ -236,6 +292,9 @@ if ($userRole != 'admin') {
                     width: '5%'
                 }]
             });
+            new DataTable('#example2', {
+                ordering: false
+            });
 
             // Tabs Switch
             $(document).on("click", ".tab-buttons a", function(e) {
@@ -266,7 +325,6 @@ if ($userRole != 'admin') {
             });
 
             // Update Recipe Status
-
             $(document).on("click", ".btn-update", function(e) {
                 e.preventDefault();
                 let id = $(this).data("id");
@@ -290,6 +348,32 @@ if ($userRole != 'admin') {
                 });
             });
 
+            // Update Category
+            $(document).on('click', '.btn-cat-edit', function(e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                let text = $(this).data('val');
+                $("#upd_cat").val(text);
+                $("input[name='upd_cat_id']").val(id);
+            });
+
+            $(document).on("submit", "#update_cat", function(e) {
+                e.preventDefault();
+                let formData = $(this).serialize();
+                $.ajax({
+                    url: 'ajax/admin.php',
+                    method: 'post',
+                    data: formData,
+                    success: function(response) {
+                        let res = JSON.parse(response);
+                        $("#showUpdCatMsg").addClass(res.status).html(res.msg);
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1800);
+                    }
+                });
+            });
+
             // Delete Recipe
             $(document).on("click", ".btn-del", function(e) {
                 e.preventDefault();
@@ -298,7 +382,31 @@ if ($userRole != 'admin') {
                     url: 'ajax/delete.php',
                     method: 'post',
                     data: {
-                        del_id: id
+                        del_id: id,
+                        table: 'recipes'
+                    },
+                    success: function(response) {
+                        let res = JSON.parse(response);
+                        $(".toast").addClass(res.status);
+                        $(".toast .toast-body").html(res.msg);
+                        toast.show();
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                    }
+                })
+            });
+
+            // Delete Categories
+            $(document).on("click", ".btn-cat-del", function(e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                $.ajax({
+                    url: 'ajax/delete.php',
+                    method: 'post',
+                    data: {
+                        del_id: id,
+                        table: 'categories'
                     },
                     success: function(response) {
                         let res = JSON.parse(response);

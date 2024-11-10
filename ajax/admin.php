@@ -23,3 +23,13 @@ if (isset($_POST['upd_recipe_status']) && !isset($_POST['category_name'])):
         echo json_encode(["status" => "d-block alert alert-success", "msg" => "Status updated successfully."]);
     endif;
 endif;
+
+
+if (isset($_POST['upd_cat']) && isset($_POST['upd_cat_id'])):
+    $upd_cat_name = $_POST['upd_cat'];
+    $upd_cat_id = $_POST['upd_cat_id'];
+    $upd_cat_Q = $db->query("UPDATE `categories` SET `category_name`='$upd_cat_name' WHERE `id`='$upd_cat_id'");
+    if ($upd_cat_Q):
+        echo json_encode(["status" => "d-block alert alert-success", "msg" => "Category updated successfully."]);
+    endif;
+endif;

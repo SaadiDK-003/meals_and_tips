@@ -3,7 +3,8 @@ require_once '../core/database.php';
 
 if (isset($_POST['del_id'])):
     $del_id = $_POST['del_id'];
-    echo delete('recipes', $del_id);
+    $table = $_POST['table'];
+    echo delete($table, $del_id);
 endif;
 
 

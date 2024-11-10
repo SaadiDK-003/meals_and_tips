@@ -7,7 +7,7 @@ function isLoggedin()
     return isset($_SESSION['user']) ? true : false;
 }
 
-// This function will take login credentials and check if user is valid create a session by his " ID "
+// Login
 function login($email, $pwd)
 {
     global $db;

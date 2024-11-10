@@ -46,7 +46,7 @@ require_once 'core/database.php';
                     </div>
                 <?php endwhile;
             else: ?>
-                <h3 class="alert alert-secondary text-center">No Recipe Available Right Now.</h3>
+                <h3 class="alert alert-secondary text-center">No Content Available Right Now.</h3>
             <?php endif;
             $edu_list_Q->close();
             $db->next_result(); ?>
