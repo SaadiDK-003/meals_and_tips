@@ -1,46 +1,46 @@
 <?php
 require_once 'core/database.php';
-if (!isLoggedin() || $userRole == 'nutritionist') {
-    header('Location: ./');
-}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= TITLE ?> | User Dashboard</title>
+    <title>Educational Content | <?= TITLE ?></title>
     <?php include 'includes/external_css.php'; ?>
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 
-<body id="userDashboard">
+<body id="edu_list">
     <?php include_once 'includes/header.php'; ?>
 
-    <div class="container mx-auto my-5 min-h-800 list-wrapper">
+    <div class="container mx-auto my-5 list-wrapper">
         <div class="row">
-            <div class="col-12 mb-3">
-                <h2 class="text-center">Favorite Recipes</h2>
+            <div class="col-12">
+                <h1 class="text-center mb-4">Educational Content List</h1>
             </div>
             <?php
-            $list_recipes_Q = $db->query("CALL `get_recipes_list_fav`('$fav_recipes')");
-            if (mysqli_num_rows($list_recipes_Q) > 0):
-                while ($list_recipes = mysqli_fetch_object($list_recipes_Q)):
+            $edu_list_Q = $db->query("CALL `get_edu_list`()");
+            if (mysqli_num_rows($edu_list_Q) > 0):
+                while ($edu_list = mysqli_fetch_object($edu_list_Q)):
             ?>
-                    <div class="col-12 col-md-3 mb-4">
-                        <div class="content">
-                            <div class="img">
-                                <img src="img/recipe/<?= $list_recipes->recipe_img ?>" alt="recipe_img_<?= $list_recipes->recipe_id ?>">
+                    <div class="col-12 col-md-6 mb-4">
+                        <div class="content d-flex flex-wrap">
+                            <div class="img d-flex align-items-center col-12 col-md-4">
+                                <img src="img/recipe/<?= $edu_list->edu_image ?>" alt="recipe_img_<?= $edu_list->edu_id ?>">
                             </div>
-                            <h3 class="mb-0 text-center"><?= $list_recipes->recipe_title ?></h3>
-                            <p class="mb-0 text-center"><?= $list_recipes->instructions ?></p>
-                            <div class="buttons_wrapper d-flex w-100 justify-content-center gap-2">
-                                <a href="#!" data-id="<?= $list_recipes->recipe_id ?>" data-bs-toggle="modal" data-bs-target="#RecipeDetails" class="btn-recipe-details btn btn-primary w-75">Details</a>
-                                <a href="#!" data-id="<?= $list_recipes->recipe_id ?>" data-usr="<?= $userID ?>" class="btn-recipe-fav btn btn-danger w-25">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+                            <div class="text-content-wrapper p-2 col-12 col-md-8">
+                                <h3><?= $edu_list->edu_title ?></h3>
+                                <p class="text-justify"><?= $edu_list->edu_desc ?></p>
+                                <div class="buttons_wrapper d-flex justify-content-center w-100 gap-2">
+                                    <a href="pdf/<?= $edu_list->edu_pdf ?>" download class="btn btn-primary w-75">Download PDF</a>
+                                    <?php if (isLoggedin()): ?>
+                                        <a href="<?= $edu_list->edu_link ?>" target="_blank" class="btn btn-danger w-25">
+                                            <i class="fab fa-youtube"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
             else: ?>
                 <h3 class="alert alert-secondary text-center">No Recipe Available Right Now.</h3>
             <?php endif;
-            $list_recipes_Q->close();
+            $edu_list_Q->close();
             $db->next_result(); ?>
         </div>
     </div>
@@ -82,7 +82,6 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
         </div>
     </div>
 
-
     <!-- Toast -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -95,12 +94,12 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
         </div>
     </div>
 
-
     <?php include_once 'includes/footer.php'; ?>
-    <?php include_once 'includes/external_js.php'; ?>
+    <?php include 'includes/external_js.php'; ?>
 
     <script>
         $(document).ready(function() {
+
             // Toast init
             const toastEl = document.querySelector('.toast');
             const toast = new bootstrap.Toast(toastEl, {
@@ -127,8 +126,6 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
                 });
             });
 
-
-            // Remove Recipe
             $(".btn-recipe-fav").on("click", function(e) {
                 e.preventDefault();
                 let id = $(this).data("id");
@@ -139,7 +136,7 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
                     'border-color': '#777'
                 });
                 $.ajax({
-                    url: "ajax/delete.php",
+                    url: "ajax/recipe_details.php",
                     method: "POST",
                     data: {
                         fav_id: id,
@@ -147,17 +144,24 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
                     },
                     success: function(response) {
                         let res = JSON.parse(response);
+                        if ($(".toast").hasClass('text-bg-danger')) {
+                            $(".toast").removeClass('text-bg-danger');
+                        }
                         $(".toast").addClass(res.class_);
                         $(".toast-body").html(res.msg);
                         toast.show();
+                        // if (res.status == 'success') {
+                        // }
                         setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
+                            $(".btn-recipe-fav").removeAttr('style');
+                            // window.location.reload();
+                        }, 1000);
                     }
                 })
             });
         });
     </script>
+
 </body>
 
 </html>

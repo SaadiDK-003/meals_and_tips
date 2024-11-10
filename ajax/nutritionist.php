@@ -71,9 +71,9 @@ if (!isset($_POST['recipe_title']) && isset($_POST['edu_title']) && isset($_POST
                 // For PDF
                 if (in_array($fileTypePDF, $allowTypesPDF)) {
                     if (move_uploaded_file($_FILES["edu_pdf"]["tmp_name"], $targetFilePathPDF)) {
-                        $recipe_Q = $db->query("INSERT INTO `edu_content` (edu_title,edu_image,edu_pdf,edu_link,edu_desc,nutritionist_id) VALUES('$edu_title','$targetFilePath','$targetFilePathPDF','$edu_link','$edu_description','$nutritionist_id')");
+                        $recipe_Q = $db->query("INSERT INTO `edu_content` (edu_title,edu_image,edu_pdf,edu_link,edu_desc,nutritionist_id) VALUES('$edu_title','$fileName','$fileNamePDF','$edu_link','$edu_description','$nutritionist_id')");
                         if ($recipe_Q):
-                            $msg = json_encode(["class_" => "d-block alert alert-success", "msg" => "Recipe added successfully.", "status" => "success"]);
+                            $msg = json_encode(["class_" => "d-block alert alert-success", "msg" => "Content added successfully.", "status" => "success"]);
                         endif;
                     } else {
                         $msg = json_encode(["class_" => "d-block alert alert-danger", "msg" => "Sorry, there was an error uploading your file.", "status" => "error"]);

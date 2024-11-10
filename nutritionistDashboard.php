@@ -291,14 +291,14 @@ if ($userRole != 'nutritionist') {
                     data: formData,
                     success: function(response) {
                         let res = JSON.parse(response);
-                        $(".showCatMsg").html(res.msg).addClass(res.class_);
+                        $(".showEduMsg").html(res.msg).addClass(res.class_);
                         if (res.status === 'success') {
                             setTimeout(() => {
                                 window.location.reload();
                             }, 1800);
                         } else {
                             setTimeout(() => {
-                                $(".showCatMsg").html('').removeClass(res.class_);
+                                $(".showEduMsg").html('').removeClass(res.class_);
                             }, 1500);
                         }
                     },

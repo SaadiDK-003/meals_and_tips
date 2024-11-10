@@ -20,7 +20,7 @@ if ($userRole != 'admin') {
 <body id="adminDashboard">
     <?php include_once 'includes/header.php'; ?>
 
-    <div class="container mx-auto mt-5">
+    <div class="container mx-auto mt-5 min-h-800">
         <div class="row">
             <div class="tab-buttons col-12 d-flex gap-3 justify-content-center">
                 <a href="#!" class="btn btn-secondary">Approve Recipes</a>

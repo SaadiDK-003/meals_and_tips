@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2024 at 10:21 PM
+-- Generation Time: Nov 10, 2024 at 04:43 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -25,6 +25,18 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_edu_list` ()  SELECT
+ec.id AS 'edu_id',
+ec.edu_title,
+ec.edu_image,
+ec.edu_pdf,
+ec.edu_link,
+ec.edu_desc,
+u.username
+FROM edu_content ec
+INNER JOIN users u
+WHERE ec.nutritionist_id=u.id$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_approved` ()  SELECT
 r.id AS 'recipe_id',
 r.recipe_title,
@@ -160,6 +172,29 @@ INSERT INTO `categories` (`id`, `category_name`, `category_img`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `edu_content`
+--
+
+CREATE TABLE `edu_content` (
+  `id` int(11) NOT NULL,
+  `edu_title` varchar(255) NOT NULL,
+  `edu_image` text DEFAULT NULL,
+  `edu_pdf` text DEFAULT NULL,
+  `edu_link` text NOT NULL,
+  `edu_desc` text NOT NULL,
+  `nutritionist_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `edu_content`
+--
+
+INSERT INTO `edu_content` (`id`, `edu_title`, `edu_image`, `edu_pdf`, `edu_link`, `edu_desc`, `nutritionist_id`) VALUES
+(3, 'edu_title', 'abc.png', 'nadra_pay.pdf', 'https://youtu.be/67J70bGNb-A', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `recipes`
 --
 
@@ -220,6 +255,13 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `edu_content`
+--
+ALTER TABLE `edu_content`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `nutritionist_id` (`nutritionist_id`);
+
+--
 -- Indexes for table `recipes`
 --
 ALTER TABLE `recipes`
@@ -244,6 +286,12 @@ ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `edu_content`
+--
+ALTER TABLE `edu_content`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
@@ -258,6 +306,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `edu_content`
+--
+ALTER TABLE `edu_content`
+  ADD CONSTRAINT `edu_content_ibfk_1` FOREIGN KEY (`nutritionist_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `recipes`

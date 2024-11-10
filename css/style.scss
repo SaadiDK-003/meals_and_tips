@@ -59,6 +59,10 @@ textarea {
   min-height: 800px;
 }
 
+.text-justify {
+  text-align: justify;
+}
+
 // General CSS End
 
 body {
@@ -180,6 +184,18 @@ body {
     }
   }
 
+  &#edu_list {
+    .list-wrapper {
+      .content {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px 3px #a1a1a133;
+      }
+    }
+  }
+
   footer {
     background-color: var(--bg-custom-green);
     min-height: 80px;
@@ -192,9 +208,8 @@ body {
     // width: 100%;
   }
   &#home,
-  &#adminDashboard,
-  &#userDashboard,
-  &#recipes_list {
+  &#recipes_list,
+  &#edu_list {
     footer {
       position: fixed;
       bottom: 0;
