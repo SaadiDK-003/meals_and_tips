@@ -168,33 +168,36 @@ if ($userRole != 'nutritionist') {
                 <div class="row">
                     <div class="col-12 col-md-8 mx-auto mt-5">
                         <span class="showEduMsg"></span>
-                        <form id="edu-form">
+                        <form id="edu-form" enctype="multipart/form-data">
                             <div class="row">
-                                <div class="col-12 col-md-4 mb-3">
+                                <div class="col-12 col-md-6 mb-3">
                                     <div class="form-group">
-                                        <label for="edu-title">Title</label>
-                                        <input type="text" autofocus name="edu_title" id="edu-title" required class="form-control">
+                                        <label for="edu_title">Title</label>
+                                        <input type="text" autofocus name="edu_title" id="edu_title" required class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-4 mb-3">
+                                <div class="col-12 col-md-6 mb-3">
                                     <div class="form-group">
-                                        <label for="edu_ingredients">Ingredients</label>
-                                        <input type="text" name="edu_ingredients" id="edu_ingredients" class="form-control" placeholder="abc,xyz like that...">
-                                        <code>Add Ingredients separate by commas</code>
+                                        <label for="edu_link">Video Link</label>
+                                        <input type="text" name="edu_link" id="edu_link" class="form-control" placeholder="link of youtube video">
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-4 mb-3">
+                                <div class="col-12 col-md-6 mb-3">
                                     <div class="form-group">
-                                        <label for="edu_category_type">Select Category</label>
-                                        <select type="text" name="edu_category_type" id="edu_category_type" required class="form-select">
-                                            <?= get_categories('categories'); ?>
-                                        </select>
+                                        <label for="edu_image">Image</label>
+                                        <input type="file" class="form-control" name="edu_image" id="edu_image">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="edu_pdf">PDF</label>
+                                        <input type="file" class="form-control" name="edu_pdf" id="edu_pdf">
                                     </div>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <div class="form-group">
-                                        <label for="edu_instructions">Instructions</label>
-                                        <textarea rows="3" name="edu_instructions" id="edu_instructions" class="form-control"></textarea>
+                                        <label for="edu_description">Description</label>
+                                        <textarea rows="3" name="edu_description" id="edu_description" class="form-control"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -253,6 +256,33 @@ if ($userRole != 'nutritionist') {
 
             // Category Form Submit
             $("#recipe-form").on("submit", function(e) {
+                e.preventDefault();
+                let formData = new FormData(this);
+                $.ajax({
+                    url: "ajax/nutritionist.php",
+                    method: "post",
+                    data: formData,
+                    success: function(response) {
+                        let res = JSON.parse(response);
+                        $(".showCatMsg").html(res.msg).addClass(res.class_);
+                        if (res.status === 'success') {
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1800);
+                        } else {
+                            setTimeout(() => {
+                                $(".showCatMsg").html('').removeClass(res.class_);
+                            }, 1500);
+                        }
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            });
+
+            // Educational Form Submit
+            $("#edu-form").on("submit", function(e) {
                 e.preventDefault();
                 let formData = new FormData(this);
                 $.ajax({

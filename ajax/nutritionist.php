@@ -2,8 +2,9 @@
 require_once '../core/database.php';
 
 $targetDir = '../img/recipe/';
+$targetDirPDF = '../pdf';
 
-if (isset($_POST['recipe_title']) && isset($_POST['ingredients'])):
+if (isset($_POST['recipe_title']) && isset($_POST['ingredients']) && !isset($_POST['edu_title'])):
 
     $recipe_title = $_POST['recipe_title'];
     $ingredients = $_POST['ingredients'];
@@ -34,4 +35,11 @@ if (isset($_POST['recipe_title']) && isset($_POST['ingredients'])):
         }
     }
     echo $msg;
+endif;
+
+
+if (isset($_POST['edu_title']) && isset($_POST['edu_image']) && !isset($_POST['recipe_title'])):
+
+
+
 endif;
