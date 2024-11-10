@@ -198,6 +198,20 @@ body {
         padding: 10px;
         border-radius: 5px;
         box-shadow: 0 0 5px 3px #a1a1a133;
+        .img {
+          img {
+            object-position: left;
+          }
+        }
+        .text-content-wrapper {
+          p {
+            display: -webkit-box;
+            line-clamp: 5;
+            overflow: hidden;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+          }
+        }
       }
     }
   }

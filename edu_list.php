@@ -28,18 +28,16 @@ require_once 'core/database.php';
                     <div class="col-12 col-md-6 mb-4">
                         <div class="content d-flex flex-wrap">
                             <div class="img d-flex align-items-center col-12 col-md-4">
-                                <img src="img/recipe/<?= $edu_list->edu_image ?>" alt="recipe_img_<?= $edu_list->edu_id ?>">
+                                <img src="img/edu/<?= $edu_list->edu_image ?>" alt="recipe_img_<?= $edu_list->edu_id ?>" class="h-100 object-fit-cover">
                             </div>
                             <div class="text-content-wrapper p-2 col-12 col-md-8">
                                 <h3><?= $edu_list->edu_title ?></h3>
                                 <p class="text-justify"><?= $edu_list->edu_desc ?></p>
                                 <div class="buttons_wrapper d-flex justify-content-center w-100 gap-2">
                                     <a href="pdf/<?= $edu_list->edu_pdf ?>" download class="content-center btn btn-primary w-75">Download PDF</a>
-                                    <?php if (isLoggedin()): ?>
-                                        <a href="<?= $edu_list->edu_link ?>" target="_blank" class="content-center btn btn-danger w-25">
-                                            <i class="fs-4 fab fa-youtube"></i>
-                                        </a>
-                                    <?php endif; ?>
+                                    <a href="<?= $edu_list->edu_link ?>" target="_blank" class="content-center btn btn-danger w-25">
+                                        <i class="fs-4 fab fa-youtube"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>

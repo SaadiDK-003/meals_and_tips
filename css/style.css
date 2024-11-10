@@ -167,6 +167,16 @@ body#edu_list .list-wrapper .content {
   border-radius: 5px;
   box-shadow: 0 0 5px 3px rgba(161, 161, 161, 0.2);
 }
+body#edu_list .list-wrapper .content .img img {
+  object-position: left;
+}
+body#edu_list .list-wrapper .content .text-content-wrapper p {
+  display: -webkit-box;
+  line-clamp: 5;
+  overflow: hidden;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
 body footer {
   background-color: var(--bg-custom-green);
   min-height: 80px;
