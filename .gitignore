@@ -4,4 +4,5 @@
 *.sass.map
 *.scss.map
 img/recipe/*
+img/edu/*
 pdf/*
