@@ -54,6 +54,12 @@ textarea {
   text-align: justify;
 }
 
+.content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 body {
   font-family: var(--ff-inter);
   background-color: rgb(236, 236, 236);

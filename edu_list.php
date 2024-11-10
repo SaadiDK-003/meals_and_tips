@@ -34,10 +34,10 @@ require_once 'core/database.php';
                                 <h3><?= $edu_list->edu_title ?></h3>
                                 <p class="text-justify"><?= $edu_list->edu_desc ?></p>
                                 <div class="buttons_wrapper d-flex justify-content-center w-100 gap-2">
-                                    <a href="pdf/<?= $edu_list->edu_pdf ?>" download class="btn btn-primary w-75">Download PDF</a>
+                                    <a href="pdf/<?= $edu_list->edu_pdf ?>" download class="content-center btn btn-primary w-75">Download PDF</a>
                                     <?php if (isLoggedin()): ?>
-                                        <a href="<?= $edu_list->edu_link ?>" target="_blank" class="btn btn-danger w-25">
-                                            <i class="fab fa-youtube"></i>
+                                        <a href="<?= $edu_list->edu_link ?>" target="_blank" class="content-center btn btn-danger w-25">
+                                            <i class="fs-4 fab fa-youtube"></i>
                                         </a>
                                     <?php endif; ?>
                                 </div>
