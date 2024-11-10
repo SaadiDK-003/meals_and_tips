@@ -173,38 +173,38 @@ if ($userRole != 'nutritionist') {
                                 <div class="col-12 col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="edu_title">Title</label>
-                                        <input type="text" autofocus name="edu_title" id="edu_title" required class="form-control">
+                                        <input type="text" name="edu_title" id="edu_title" required class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="edu_link">Video Link</label>
-                                        <input type="text" name="edu_link" id="edu_link" class="form-control" placeholder="link of youtube video">
+                                        <input type="url" name="edu_link" id="edu_link" class="form-control" required placeholder="link of youtube video">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="edu_image">Image</label>
-                                        <input type="file" class="form-control" name="edu_image" id="edu_image">
+                                        <input type="file" class="form-control" required name="edu_image" id="edu_image">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <div class="form-group">
-                                        <label for="edu_pdf">PDF</label>
-                                        <input type="file" class="form-control" name="edu_pdf" id="edu_pdf">
+                                        <label for="edu_pdf">PDF File (for download)</label>
+                                        <input type="file" class="form-control" required name="edu_pdf" id="edu_pdf">
                                     </div>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <div class="form-group">
                                         <label for="edu_description">Description</label>
-                                        <textarea rows="3" name="edu_description" id="edu_description" class="form-control"></textarea>
+                                        <textarea rows="3" required name="edu_description" id="edu_description" class="form-control"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <input type="hidden" name="edu_nutritionist_id" value="<?= $userID ?>">
                                         <button type="submit" name="edu_submit" id="edu_submit" class="btn btn-custom-green d-block ms-auto">
-                                            Add Recipe
+                                            Add Edu Content
                                         </button>
                                     </div>
                                 </div>
