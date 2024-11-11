@@ -28,7 +28,7 @@ require_once 'core/database.php';
                     <div class="col-12 col-md-6 mb-4">
                         <div class="content d-flex flex-wrap">
                             <div class="img d-flex align-items-center col-12 col-md-4">
-                                <img src="img/edu/<?= $edu_list->edu_image ?>" alt="recipe_img_<?= $edu_list->edu_id ?>" class="h-100 object-fit-cover">
+                                <img src="img/edu/<?= $edu_list->edu_image ?>" alt="recipe_img_<?= $edu_list->edu_id ?>" class="h-100 object-fit-cover rounded">
                             </div>
                             <div class="text-content-wrapper p-2 col-12 col-md-8">
                                 <h3><?= $edu_list->edu_title ?></h3>
