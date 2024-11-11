@@ -49,6 +49,7 @@ if (isLoggedin()) {
                                     LOGIN
                                 </button>
                             </div>
+                            <a href="./" class="d-block mx-auto text-center mt-4 text-decoration-none">Back to home page.</a>
                         </div>
                     </div>
                 </form>
