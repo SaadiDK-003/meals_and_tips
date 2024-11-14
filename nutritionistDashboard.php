@@ -160,8 +160,89 @@ if ($userRole != 'nutritionist') {
                 </div>
             </div>
             <!-- MEAL PLAN -->
-            <div class="col-12 mx-auto mt-4 d-none">
-                <h1>Meal Plan</h1>
+            <div class="col-12 col-md-8 mx-auto my-5 d-none">
+                <form id="meal-form">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="form-group">
+                                <label for="meal_desc">Meal Description</label>
+                                <textarea name="meal_desc" id="meal_desc" rows="2" required class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <!-- Breakfast -->
+                        <div class="col-12 col-md-6 d-flex align-items-center mt-2">
+                            <div class="form-group w-100">
+                                <input type="text" name="breakfast_" value="Breakfast" class="form-control bg-success text-white" disabled>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3 col-md-6">
+                            <div class="form-group">
+                                <label for="breakfast-meal-time">Breakfast Time</label>
+                                <input type="time" id="breakfast-meal-time" name="breakfast_meal_time" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="form-group">
+                                <label for="breakfast_desc">Breakfast Description</label>
+                                <input name="breakfast_desc" id="breakfast_desc" class="form-control">
+                            </div>
+                        </div>
+                        <!-- Snack -->
+                        <div class="col-12 col-md-6 d-flex align-items-center mt-2">
+                            <div class="form-group w-100">
+                                <input type="text" name="snack_" value="Snack" class="form-control bg-success text-white" disabled>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3 col-md-6">
+                            <div class="form-group">
+                                <label for="snack-meal-time">Snack Time</label>
+                                <input type="time" id="snack-meal-time" name="snack_meal_time" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="form-group">
+                                <label for="snack_desc">Snack Description</label>
+                                <input name="snack_desc" id="snack_desc" class="form-control">
+                            </div>
+                        </div>
+                        <!-- Lunch -->
+                        <div class="col-12 col-md-6 d-flex align-items-center mt-2">
+                            <div class="form-group w-100">
+                                <input type="text" name="lunch_" value="Lunch" class="form-control bg-success text-white" disabled>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3 col-md-6">
+                            <div class="form-group">
+                                <label for="lunch-meal-time">Lunch Time</label>
+                                <input type="time" id="lunch-meal-time" name="lunch_meal_time" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="form-group">
+                                <label for="lunch_desc">Lunch Description</label>
+                                <input name="lunch_desc" id="lunch_desc" class="form-control">
+                            </div>
+                        </div>
+                        <!-- Dinner -->
+                        <div class="col-12 col-md-6 d-flex align-items-center mt-2">
+                            <div class="form-group w-100">
+                                <input type="text" name="dinner_" value="Dinner" class="form-control bg-success text-white" disabled>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3 col-md-6">
+                            <div class="form-group">
+                                <label for="dinner-meal-time">Dinner Time</label>
+                                <input type="time" id="dinner-meal-time" name="dinner_meal_time" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="form-group">
+                                <label for="dinner_desc">Dinner Description</label>
+                                <input name="dinner_desc" id="dinner_desc" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <!-- Add Educational Content -->
             <div class="col-12 mx-auto d-none">
