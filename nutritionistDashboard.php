@@ -178,13 +178,13 @@ if ($userRole != 'nutritionist') {
                         <div class="col-12 mb-3 col-md-6">
                             <div class="form-group">
                                 <label for="breakfast-meal-time">Breakfast Time</label>
-                                <input type="time" id="breakfast-meal-time" name="breakfast_meal_time" class="form-control">
+                                <input type="time" id="breakfast-meal-time" name="breakfast_meal_time" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group">
                                 <label for="breakfast_desc">Breakfast Description</label>
-                                <input name="breakfast_desc" id="breakfast_desc" class="form-control">
+                                <input name="breakfast_desc" id="breakfast_desc" class="form-control" required>
                             </div>
                         </div>
                         <!-- Snack -->
@@ -196,13 +196,13 @@ if ($userRole != 'nutritionist') {
                         <div class="col-12 mb-3 col-md-6">
                             <div class="form-group">
                                 <label for="snack-meal-time">Snack Time</label>
-                                <input type="time" id="snack-meal-time" name="snack_meal_time" class="form-control">
+                                <input type="time" id="snack-meal-time" name="snack_meal_time" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group">
                                 <label for="snack_desc">Snack Description</label>
-                                <input name="snack_desc" id="snack_desc" class="form-control">
+                                <input name="snack_desc" id="snack_desc" class="form-control" required>
                             </div>
                         </div>
                         <!-- Lunch -->
@@ -214,13 +214,13 @@ if ($userRole != 'nutritionist') {
                         <div class="col-12 mb-3 col-md-6">
                             <div class="form-group">
                                 <label for="lunch-meal-time">Lunch Time</label>
-                                <input type="time" id="lunch-meal-time" name="lunch_meal_time" class="form-control">
+                                <input type="time" id="lunch-meal-time" name="lunch_meal_time" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group">
                                 <label for="lunch_desc">Lunch Description</label>
-                                <input name="lunch_desc" id="lunch_desc" class="form-control">
+                                <input name="lunch_desc" id="lunch_desc" class="form-control" required>
                             </div>
                         </div>
                         <!-- Dinner -->
@@ -232,13 +232,18 @@ if ($userRole != 'nutritionist') {
                         <div class="col-12 mb-3 col-md-6">
                             <div class="form-group">
                                 <label for="dinner-meal-time">Dinner Time</label>
-                                <input type="time" id="dinner-meal-time" name="dinner_meal_time" class="form-control">
+                                <input type="time" id="dinner-meal-time" name="dinner_meal_time" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group">
                                 <label for="dinner_desc">Dinner Description</label>
-                                <input name="dinner_desc" id="dinner_desc" class="form-control">
+                                <input name="dinner_desc" id="dinner_desc" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary d-block ms-auto">Add Meal Plan</button>
                             </div>
                         </div>
                     </div>
