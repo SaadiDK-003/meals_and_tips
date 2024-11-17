@@ -21,8 +21,7 @@ require_once 'core/database.php';
                 <h2 class="text-center">Meals & Plan</h2>
             </div>
             <?php $get_mp_Q = $db->query("CALL `get_meal_plans`()");
-            while ($mp_list = mysqli_fetch_object($get_mp_Q)):
-            ?>
+            while ($mp_list = mysqli_fetch_object($get_mp_Q)): ?>
                 <div class="col-12 mb-3">
                     <div class="content bg-white rounded p-3 position-relative">
                         <h3 class="mb-0 text-secondary"><?= $mp_list->meal_desc ?> | <span class="btn btn-secondary"><?= $mp_list->category_name ?></span></h3>
