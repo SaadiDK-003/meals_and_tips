@@ -177,21 +177,25 @@ body#edu_list .list-wrapper .content .text-content-wrapper p {
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
 }
-body#meals_and_plan .content .toggle_btn {
+body#meals_plan .content .toggle_btn {
   right: 15px;
   top: 20px;
 }
-body#meals_and_plan .content .time_plan_wrapper {
+body#meals_plan .content .add_fav {
+  top: 20px;
+  right: 60px;
+}
+body#meals_plan .content .time_plan_wrapper {
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   overflow: hidden;
   height: 0;
 }
 @media (min-width: 768.1px) {
-  body#meals_and_plan .content .time_plan_wrapper .time_plan:last-child {
+  body#meals_plan .content .time_plan_wrapper .time_plan:last-child {
     position: relative;
     grid-column: 2;
   }
-  body#meals_and_plan .content .time_plan_wrapper .time_plan:last-child::before, body#meals_and_plan .content .time_plan_wrapper .time_plan:last-child::after {
+  body#meals_plan .content .time_plan_wrapper .time_plan:last-child::before, body#meals_plan .content .time_plan_wrapper .time_plan:last-child::after {
     content: "";
     position: absolute;
     top: 50%;
@@ -200,14 +204,14 @@ body#meals_and_plan .content .time_plan_wrapper {
     height: 2px;
     background-color: #eee;
   }
-  body#meals_and_plan .content .time_plan_wrapper .time_plan:last-child::before {
+  body#meals_plan .content .time_plan_wrapper .time_plan:last-child::before {
     left: -350px;
   }
-  body#meals_and_plan .content .time_plan_wrapper .time_plan:last-child::after {
+  body#meals_plan .content .time_plan_wrapper .time_plan:last-child::after {
     right: -350px;
   }
 }
-body#meals_and_plan .content .time_plan_wrapper.active {
+body#meals_plan .content .time_plan_wrapper.active {
   height: auto;
   margin-top: 15px;
 }
@@ -218,7 +222,7 @@ body footer {
   align-items: center;
   justify-content: center;
 }
-body#home footer, body#recipes_list footer, body#edu_list footer, body#meals_and_plan footer {
+body#home footer, body#recipes_list footer, body#edu_list footer, body#meals_plan footer {
   position: fixed;
   bottom: 0;
   left: 0;

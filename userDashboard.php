@@ -38,7 +38,7 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
                             <p class="mb-0 text-center"><?= $list_recipes->instructions ?></p>
                             <div class="buttons_wrapper d-flex w-100 justify-content-center gap-2">
                                 <a href="#!" data-id="<?= $list_recipes->recipe_id ?>" data-bs-toggle="modal" data-bs-target="#RecipeDetails" class="btn-recipe-details btn btn-primary w-75">Details</a>
-                                <a href="#!" data-id="<?= $list_recipes->recipe_id ?>" data-usr="<?= $userID ?>" class="btn-recipe-fav btn btn-danger w-25">
+                                <a href="#!" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete From Favorite" data-bs-trigger="hover" data-id="<?= $list_recipes->recipe_id ?>" data-usr="<?= $userID ?>" class="btn-recipe-fav btn btn-danger w-25">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>

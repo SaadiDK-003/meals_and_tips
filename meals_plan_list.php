@@ -12,20 +12,21 @@ require_once 'core/database.php';
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 
-<body id="meals_and_plan">
+<body id="meals_plan">
     <?php include_once 'includes/header.php'; ?>
 
     <div class="container my-5">
         <div class="row">
             <div class="col-12 mb-3">
-                <h2 class="text-center">Meals & Plan</h2>
+                <h2 class="text-center">Meals Plan</h2>
             </div>
             <?php $get_mp_Q = $db->query("CALL `get_meal_plans`()");
             while ($mp_list = mysqli_fetch_object($get_mp_Q)): ?>
                 <div class="col-12 mb-3">
                     <div class="content bg-white rounded p-3 position-relative">
                         <h3 class="mb-0 text-secondary"><?= $mp_list->meal_desc ?> | <span class="btn btn-secondary"><?= $mp_list->category_name ?></span></h3>
-                        <a href="#!" class="position-absolute btn btn-sm btn-success toggle_btn"><i class="fas fa-plus"></i></a>
+                        <a href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Favorite" data-bs-offset="-40,5" data-bs-trigger="hover" class="position-absolute btn btn-sm btn-danger add_fav"><i class="fas fa-star"></i></a>
+                        <a href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Expand or Collapse" data-bs-offset="45,5" data-bs-trigger="hover" class="position-absolute btn btn-sm btn-success toggle_btn"><i class="fas fa-plus"></i></a>
                         <div class="time_plan_wrapper d-grid gap-2 text-center">
                             <div class="time_plan alert alert-secondary mb-0 p-1">
                                 <p class="mb-0"><strong>Breakfast Time:</strong></p>

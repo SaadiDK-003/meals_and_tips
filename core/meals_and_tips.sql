@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2024 at 11:42 AM
+-- Generation Time: Nov 17, 2024 at 05:35 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -184,7 +184,8 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `category_name`, `category_img`) VALUES
 (1, 'high blood pressure', NULL),
-(2, 'obesity', NULL);
+(2, 'obesity', NULL),
+(5, 'test123', NULL);
 
 -- --------------------------------------------------------
 
@@ -235,7 +236,7 @@ CREATE TABLE `meal_plan` (
 
 INSERT INTO `meal_plan` (`id`, `meal_desc`, `cat_id`, `breakfast_time`, `breakfast_meal`, `snack_time`, `snack_meal`, `lunch_time`, `lunch_meal`, `dinner_time`, `dinner_meal`) VALUES
 (4, 'For Blood Pressure People Healthy Diet', 1, '07:00:00', 'Eat one boil egg, take 1 cup of Milk, take 2 slices of toast.', '11:30:00', 'Eat some junk food hehe.', '15:30:00', 'Drink Banana Shake, Eat Samosa and chicken roll.', '21:00:00', 'Eat what ever you like.'),
-(5, 'Distinctio Minima r', 2, '02:54:00', 'Minus illum explica', '14:49:00', 'Tempore et mollit v', '22:09:00', 'Sed doloremque iusto', '07:30:00', 'Consequatur quod to');
+(6, 'Et occaecat laudanti', 1, '07:50:00', 'Quia corporis velit', '13:27:00', 'Dolorem aspernatur v', '15:00:00', 'Cumque amet et eaqu', '23:22:00', 'Exercitationem labor');
 
 -- --------------------------------------------------------
 
@@ -261,7 +262,7 @@ CREATE TABLE `recipes` (
 INSERT INTO `recipes` (`id`, `recipe_title`, `ingredients`, `instructions`, `nutritionist_id`, `cat_id`, `recipe_status`, `recipe_img`) VALUES
 (23, 'test_recipe_1', '1 cup salt, 2 cup oil', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 1, '1', 'red-forest-trees_.jpg'),
 (24, 'test111', '1 cup salt, 2 cup oil, etc...', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 2, '1', 'oii.jpg'),
-(25, 'Cumque dolores iure ', 'Similique dolorem ad', 'Quam velit incididun', 3, 2, '0', 'abc.png');
+(25, 'Cumque dolores iure ', 'Similique dolorem ad', 'Quam velit incididun', 3, 2, '1', 'abc.png');
 
 -- --------------------------------------------------------
 
@@ -277,18 +278,35 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `role` enum('admin','nutritionist','user') NOT NULL DEFAULT 'user',
   `status` enum('0','1') NOT NULL DEFAULT '0',
-  `fav_recipes` text DEFAULT NULL
+  `fav_recipes` text DEFAULT NULL,
+  `fav_meals` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`, `role`, `status`, `fav_recipes`) VALUES
-(1, 'admin', 'admin@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'admin', '0', NULL),
-(2, 'user', 'user@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'user', '0', ''),
-(3, 'nutritionist', 'nutritionist@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL),
-(4, 'nutritionist1', 'nutritionist1@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL);
+INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`, `role`, `status`, `fav_recipes`, `fav_meals`) VALUES
+(1, 'admin', 'admin@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'admin', '0', NULL, NULL),
+(2, 'user', 'user@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'user', '0', '', NULL),
+(3, 'nutritionist', 'nutritionist@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL, NULL),
+(4, 'nutritionist1', 'nutritionist1@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_meal_plan`
+--
+
+CREATE TABLE `user_meal_plan` (
+  `id` int(11) NOT NULL,
+  `plan_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `days` text NOT NULL,
+  `progress` int(11) NOT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -329,6 +347,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_meal_plan`
+--
+ALTER TABLE `user_meal_plan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -336,7 +360,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `edu_content`
@@ -348,7 +372,7 @@ ALTER TABLE `edu_content`
 -- AUTO_INCREMENT for table `meal_plan`
 --
 ALTER TABLE `meal_plan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `recipes`
@@ -361,6 +385,12 @@ ALTER TABLE `recipes`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `user_meal_plan`
+--
+ALTER TABLE `user_meal_plan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

@@ -216,11 +216,15 @@ body {
     }
   }
 
-  &#meals_and_plan {
+  &#meals_plan {
     .content {
       .toggle_btn {
         right: 15px;
         top: 20px;
+      }
+      .add_fav {
+        top: 20px;
+        right: 60px;
       }
       .time_plan_wrapper {
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -277,7 +281,7 @@ body {
   &#home,
   &#recipes_list,
   &#edu_list,
-  &#meals_and_plan {
+  &#meals_plan {
     footer {
       position: fixed;
       bottom: 0;
