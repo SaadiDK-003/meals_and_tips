@@ -91,3 +91,22 @@ if (!isset($_POST['recipe_title']) && isset($_POST['edu_title']) && isset($_POST
     echo $msg;
 
 endif;
+
+
+if (isset($_POST['meal_desc']) && isset($_POST['cat_id']) && isset($_POST['breakfast_time'])):
+
+    $keys = '';
+    $values = '';
+    foreach ($_POST as $key => $value) {
+        $keys .= $key . ',';
+        $values .= "'" . $value . "',";
+    }
+    $keys = substr($keys, 0, strlen($keys) - 1);
+    $values = substr($values, 0, strlen($values) - 1);
+
+    $meal_Q = $db->query("INSERT INTO `meal_plan` ($keys) VALUES($values)");
+    if ($meal_Q) {
+        echo json_encode(["class_" => "d-block alert alert-success text-center", "msg" => "Meal Plan added successfully."]);
+    }
+
+endif;

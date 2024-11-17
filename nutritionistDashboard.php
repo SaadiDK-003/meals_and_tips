@@ -162,11 +162,20 @@ if ($userRole != 'nutritionist') {
             <!-- MEAL PLAN -->
             <div class="col-12 col-md-8 mx-auto my-5 d-none">
                 <form id="meal-form">
+                    <span id="mealMsg"></span>
                     <div class="row">
-                        <div class="col-12 mb-3">
+                        <div class="col-12 col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="meal_desc">Meal Description</label>
-                                <textarea name="meal_desc" id="meal_desc" rows="2" required class="form-control"></textarea>
+                                <input name="meal_desc" id="meal_desc" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="cat_id">Category</label>
+                                <select name="cat_id" id="cat_id" class="form-select" required>
+                                    <?= get_categories('categories'); ?>
+                                </select>
                             </div>
                         </div>
                         <!-- Breakfast -->
@@ -178,13 +187,13 @@ if ($userRole != 'nutritionist') {
                         <div class="col-12 mb-3 col-md-6">
                             <div class="form-group">
                                 <label for="breakfast-meal-time">Breakfast Time</label>
-                                <input type="time" id="breakfast-meal-time" name="breakfast_meal_time" class="form-control" required>
+                                <input type="time" id="breakfast-meal-time" name="breakfast_time" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group">
                                 <label for="breakfast_desc">Breakfast Description</label>
-                                <input name="breakfast_desc" id="breakfast_desc" class="form-control" required>
+                                <input name="breakfast_meal" id="breakfast_desc" class="form-control" required>
                             </div>
                         </div>
                         <!-- Snack -->
@@ -196,13 +205,13 @@ if ($userRole != 'nutritionist') {
                         <div class="col-12 mb-3 col-md-6">
                             <div class="form-group">
                                 <label for="snack-meal-time">Snack Time</label>
-                                <input type="time" id="snack-meal-time" name="snack_meal_time" class="form-control" required>
+                                <input type="time" id="snack-meal-time" name="snack_time" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group">
                                 <label for="snack_desc">Snack Description</label>
-                                <input name="snack_desc" id="snack_desc" class="form-control" required>
+                                <input name="snack_meal" id="snack_desc" class="form-control" required>
                             </div>
                         </div>
                         <!-- Lunch -->
@@ -214,13 +223,13 @@ if ($userRole != 'nutritionist') {
                         <div class="col-12 mb-3 col-md-6">
                             <div class="form-group">
                                 <label for="lunch-meal-time">Lunch Time</label>
-                                <input type="time" id="lunch-meal-time" name="lunch_meal_time" class="form-control" required>
+                                <input type="time" id="lunch-meal-time" name="lunch_time" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group">
                                 <label for="lunch_desc">Lunch Description</label>
-                                <input name="lunch_desc" id="lunch_desc" class="form-control" required>
+                                <input name="lunch_meal" id="lunch_desc" class="form-control" required>
                             </div>
                         </div>
                         <!-- Dinner -->
@@ -232,13 +241,13 @@ if ($userRole != 'nutritionist') {
                         <div class="col-12 mb-3 col-md-6">
                             <div class="form-group">
                                 <label for="dinner-meal-time">Dinner Time</label>
-                                <input type="time" id="dinner-meal-time" name="dinner_meal_time" class="form-control" required>
+                                <input type="time" id="dinner-meal-time" name="dinner_time" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group">
                                 <label for="dinner_desc">Dinner Description</label>
-                                <input name="dinner_desc" id="dinner_desc" class="form-control" required>
+                                <input name="dinner_meal" id="dinner_desc" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-12">
@@ -392,6 +401,24 @@ if ($userRole != 'nutritionist') {
                     contentType: false,
                     processData: false
                 });
+            });
+
+            // Meal Plan
+            $("#meal-form").on("submit", function(e) {
+                e.preventDefault();
+                let formData = $(this).serialize();
+                $.ajax({
+                    url: 'ajax/nutritionist.php',
+                    method: 'post',
+                    data: formData,
+                    success: function(response) {
+                        let res = JSON.parse(response);
+                        $("#mealMsg").addClass(res.class_).html(res.msg);
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1800);
+                    }
+                })
             });
         });
     </script>

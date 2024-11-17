@@ -216,6 +216,53 @@ body {
     }
   }
 
+  &#meals_and_plan {
+    .content {
+      .toggle_btn {
+        right: 15px;
+        top: 20px;
+      }
+      .time_plan_wrapper {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        overflow: hidden;
+        height: 0;
+        // transition: all 0.5s ease;
+        .time_plan {
+          @include responsive("desktop") {
+            &:not(:nth-child(3)) {
+              // border-right: 1px solid #ddd;
+            }
+            &:last-child {
+              // border-left: 1px solid #ddd;
+              position: relative;
+              grid-column: 2;
+              &::before,
+              &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 80%;
+                height: 2px;
+                background-color: #eee;
+              }
+              &::before {
+                left: -350px;
+              }
+              &::after {
+                right: -350px;
+              }
+            }
+          }
+        }
+        &.active {
+          height: auto;
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+
   footer {
     background-color: var(--bg-custom-green);
     min-height: 80px;
@@ -229,7 +276,8 @@ body {
   }
   &#home,
   &#recipes_list,
-  &#edu_list {
+  &#edu_list,
+  &#meals_and_plan {
     footer {
       position: fixed;
       bottom: 0;

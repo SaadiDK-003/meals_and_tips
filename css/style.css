@@ -177,6 +177,40 @@ body#edu_list .list-wrapper .content .text-content-wrapper p {
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
 }
+body#meals_and_plan .content .toggle_btn {
+  right: 15px;
+  top: 20px;
+}
+body#meals_and_plan .content .time_plan_wrapper {
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  overflow: hidden;
+  height: 0;
+}
+@media (min-width: 768.1px) {
+  body#meals_and_plan .content .time_plan_wrapper .time_plan:last-child {
+    position: relative;
+    grid-column: 2;
+  }
+  body#meals_and_plan .content .time_plan_wrapper .time_plan:last-child::before, body#meals_and_plan .content .time_plan_wrapper .time_plan:last-child::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80%;
+    height: 2px;
+    background-color: #eee;
+  }
+  body#meals_and_plan .content .time_plan_wrapper .time_plan:last-child::before {
+    left: -350px;
+  }
+  body#meals_and_plan .content .time_plan_wrapper .time_plan:last-child::after {
+    right: -350px;
+  }
+}
+body#meals_and_plan .content .time_plan_wrapper.active {
+  height: auto;
+  margin-top: 15px;
+}
 body footer {
   background-color: var(--bg-custom-green);
   min-height: 80px;
@@ -184,7 +218,7 @@ body footer {
   align-items: center;
   justify-content: center;
 }
-body#home footer, body#recipes_list footer, body#edu_list footer {
+body#home footer, body#recipes_list footer, body#edu_list footer, body#meals_and_plan footer {
   position: fixed;
   bottom: 0;
   left: 0;

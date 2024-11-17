@@ -33,7 +33,7 @@ if (isLoggedin()) {
                         <div class="col-12 mb-3">
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" name="email" id="email" required class="form-control">
+                                <input type="email" autofocus name="email" id="email" required class="form-control">
                             </div>
                         </div>
                         <div class="col-12 mb-3">

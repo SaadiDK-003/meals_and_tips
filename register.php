@@ -33,7 +33,7 @@ if (isLoggedin()) {
                         <div class="col-12 col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="username">Name</label>
-                                <input type="username" name="username" id="username" required class="form-control">
+                                <input type="username" autofocus name="username" id="username" required class="form-control">
                             </div>
                         </div>
                         <div class="col-12 col-md-6 mb-3">

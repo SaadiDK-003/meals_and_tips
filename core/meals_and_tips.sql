@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2024 at 06:11 PM
+-- Generation Time: Nov 17, 2024 at 11:42 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -36,6 +36,23 @@ u.username
 FROM edu_content ec
 INNER JOIN users u
 WHERE ec.nutritionist_id=u.id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_meal_plans` ()  SELECT
+mp.id AS 'mp_id',
+mp.meal_desc,
+mp.breakfast_time,
+mp.breakfast_meal,
+mp.snack_time,
+mp.snack_meal,
+mp.lunch_time,
+mp.lunch_meal,
+mp.dinner_time,
+mp.dinner_meal,
+c.category_name,
+c.category_img
+FROM meal_plan mp
+INNER JOIN categories c
+WHERE mp.cat_id=c.id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_approved` ()  SELECT
 r.id AS 'recipe_id',
@@ -185,6 +202,41 @@ CREATE TABLE `edu_content` (
   `nutritionist_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `edu_content`
+--
+
+INSERT INTO `edu_content` (`id`, `edu_title`, `edu_image`, `edu_pdf`, `edu_link`, `edu_desc`, `nutritionist_id`) VALUES
+(6, 'edu_title', 'gtrR35.jpg', 'nadra_pay.pdf', 'https://youtu.be/67J70bGNb-A', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `meal_plan`
+--
+
+CREATE TABLE `meal_plan` (
+  `id` int(11) NOT NULL,
+  `meal_desc` text NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `breakfast_time` time NOT NULL,
+  `breakfast_meal` text NOT NULL,
+  `snack_time` time NOT NULL,
+  `snack_meal` text NOT NULL,
+  `lunch_time` time NOT NULL,
+  `lunch_meal` text NOT NULL,
+  `dinner_time` time NOT NULL,
+  `dinner_meal` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `meal_plan`
+--
+
+INSERT INTO `meal_plan` (`id`, `meal_desc`, `cat_id`, `breakfast_time`, `breakfast_meal`, `snack_time`, `snack_meal`, `lunch_time`, `lunch_meal`, `dinner_time`, `dinner_meal`) VALUES
+(4, 'For Blood Pressure People Healthy Diet', 1, '07:00:00', 'Eat one boil egg, take 1 cup of Milk, take 2 slices of toast.', '11:30:00', 'Eat some junk food hehe.', '15:30:00', 'Drink Banana Shake, Eat Samosa and chicken roll.', '21:00:00', 'Eat what ever you like.'),
+(5, 'Distinctio Minima r', 2, '02:54:00', 'Minus illum explica', '14:49:00', 'Tempore et mollit v', '22:09:00', 'Sed doloremque iusto', '07:30:00', 'Consequatur quod to');
+
 -- --------------------------------------------------------
 
 --
@@ -207,7 +259,9 @@ CREATE TABLE `recipes` (
 --
 
 INSERT INTO `recipes` (`id`, `recipe_title`, `ingredients`, `instructions`, `nutritionist_id`, `cat_id`, `recipe_status`, `recipe_img`) VALUES
-(22, 'Nesciunt assumenda', '1 cup salt, 2 cup oil, etc...', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 1, '1', 'oii.jpg');
+(23, 'test_recipe_1', '1 cup salt, 2 cup oil', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 1, '1', 'red-forest-trees_.jpg'),
+(24, 'test111', '1 cup salt, 2 cup oil, etc...', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 2, '1', 'oii.jpg'),
+(25, 'Cumque dolores iure ', 'Similique dolorem ad', 'Quam velit incididun', 3, 2, '0', 'abc.png');
 
 -- --------------------------------------------------------
 
@@ -254,6 +308,13 @@ ALTER TABLE `edu_content`
   ADD KEY `nutritionist_id` (`nutritionist_id`);
 
 --
+-- Indexes for table `meal_plan`
+--
+ALTER TABLE `meal_plan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cat_id` (`cat_id`);
+
+--
 -- Indexes for table `recipes`
 --
 ALTER TABLE `recipes`
@@ -281,13 +342,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `edu_content`
 --
 ALTER TABLE `edu_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `meal_plan`
+--
+ALTER TABLE `meal_plan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -304,6 +371,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `edu_content`
   ADD CONSTRAINT `edu_content_ibfk_1` FOREIGN KEY (`nutritionist_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `meal_plan`
+--
+ALTER TABLE `meal_plan`
+  ADD CONSTRAINT `meal_plan_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`id`);
 
 --
 -- Constraints for table `recipes`
