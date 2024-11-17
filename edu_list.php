@@ -98,12 +98,6 @@ require_once 'core/database.php';
     <script>
         $(document).ready(function() {
 
-            // Toast init
-            const toastEl = document.querySelector('.toast');
-            const toast = new bootstrap.Toast(toastEl, {
-                autohide: true,
-            });
-
             $(".btn-recipe-details").on('click', function(e) {
                 e.preventDefault();
                 let id = $(this).data('id');

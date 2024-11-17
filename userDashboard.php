@@ -20,6 +20,7 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
     <?php include_once 'includes/header.php'; ?>
 
     <div class="container mx-auto my-5 min-h-800 list-wrapper">
+        <!-- Favorite Recipes -->
         <div class="row">
             <div class="col-12 mb-3">
                 <h2 class="text-center">Favorite Recipes</h2>
@@ -49,6 +50,53 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
                 <h3 class="alert alert-secondary text-center">No Recipe Available Right Now.</h3>
             <?php endif;
             $list_recipes_Q->close();
+            $db->next_result(); ?>
+        </div>
+
+        <!-- Favorite Meal Plans -->
+        <div class="row">
+            <div class="col-12 mb-3">
+                <h2 class="text-center">Favorite Meal Plans</h2>
+            </div>
+            <?php
+            $list_meals_Q = $db->query("CALL `get_meal_plans_by_ids`('$fav_meals')");
+            if (mysqli_num_rows($list_meals_Q) > 0):
+                while ($list_meals = mysqli_fetch_object($list_meals_Q)):
+            ?>
+                    <div class="col-12 mb-3">
+                        <div class="content_meal bg-white rounded p-3 position-relative">
+                            <h3 class="mb-0 text-secondary"><?= $list_meals->meal_desc ?> | <span class="btn btn-secondary"><?= $list_meals->category_name ?></span></h3>
+                            <a href="#!" data-id="<?= $list_meals->mp_id ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove From Favorite" data-bs-offset="-40,5" data-bs-trigger="hover" class="position-absolute btn btn-sm btn-danger add_fav_meal btn-meal-remove"><i class="fas fa-trash"></i></a>
+                            <a href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Expand or Collapse" data-bs-offset="45,5" data-bs-trigger="hover" class="position-absolute btn btn-sm btn-success toggle_btn"><i class="fas fa-plus"></i></a>
+                            <div class="time_plan_wrapper d-grid gap-2 text-center">
+                                <div class="time_plan alert alert-secondary mb-0 p-1">
+                                    <p class="mb-0"><strong>Breakfast Time:</strong></p>
+                                    <p class="mb-0"><?= date('h:i A', strtotime($list_meals->breakfast_time)); ?></p>
+                                    <p class="mb-0"><?= $list_meals->breakfast_meal ?></p>
+                                </div>
+                                <div class="time_plan alert alert-secondary mb-0 p-1">
+                                    <p class="mb-0"><strong>Snack Time:</strong></p>
+                                    <p class="mb-0"><?= date('h:i A', strtotime($list_meals->snack_time)); ?></p>
+                                    <p class="mb-0"><?= $list_meals->snack_meal ?></p>
+                                </div>
+                                <div class="time_plan alert alert-secondary mb-0 p-1">
+                                    <p class="mb-0"><strong>Lunch Time:</strong></p>
+                                    <p class="mb-0"><?= date('h:i A', strtotime($list_meals->lunch_time)); ?></p>
+                                    <p class="mb-0"><?= $list_meals->lunch_meal ?></p>
+                                </div>
+                                <div class="time_plan alert alert-secondary mb-0 p-1">
+                                    <p class="mb-0"><strong>Dinner Time:</strong></p>
+                                    <p class="mb-0"><?= date('h:i A', strtotime($list_meals->dinner_time)); ?></p>
+                                    <p class="mb-0"><?= $list_meals->dinner_meal ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endwhile;
+            else: ?>
+                <h3 class="alert alert-secondary text-center">No Meal Plan Available Right Now.</h3>
+            <?php endif;
+            $list_meals_Q->close();
             $db->next_result(); ?>
         </div>
     </div>
@@ -101,11 +149,6 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
 
     <script>
         $(document).ready(function() {
-            // Toast init
-            const toastEl = document.querySelector('.toast');
-            const toast = new bootstrap.Toast(toastEl, {
-                autohide: true,
-            });
 
             $(".btn-recipe-details").on('click', function(e) {
                 e.preventDefault();
@@ -127,7 +170,6 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
                 });
             });
 
-
             // Remove Recipe
             $(".btn-recipe-fav").on("click", function(e) {
                 e.preventDefault();
@@ -143,7 +185,7 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
                     method: "POST",
                     data: {
                         fav_id: id,
-                        usrID: usrID
+                        table_column: 'fav_recipes'
                     },
                     success: function(response) {
                         let res = JSON.parse(response);
@@ -156,6 +198,46 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
                     }
                 })
             });
+
+            // Meal Plan Toggle
+            $(".toggle_btn").on('click', function(e) {
+                e.preventDefault();
+                if ($(this).children('i').hasClass('fa-minus')) {
+                    $(this).children('i').removeClass('fa-minus').addClass('fa-plus');
+                } else {
+                    $(this).children('i').removeClass('fa-plus').addClass('fa-minus');
+                }
+                $(this).next().toggleClass('active');
+            });
+
+            // Remove Meal Plan
+            $(".btn-meal-remove").on("click", function(e) {
+                e.preventDefault();
+                let id = $(this).data("id");
+                $(this).css({
+                    'pointer-events': 'none',
+                    'background-color': '#777',
+                    'border-color': '#777'
+                });
+                $.ajax({
+                    url: "ajax/delete.php",
+                    method: "POST",
+                    data: {
+                        fav_id: id,
+                        table_column: 'fav_meals'
+                    },
+                    success: function(response) {
+                        let res = JSON.parse(response);
+                        $(".toast").addClass(res.class_);
+                        $(".toast-body").html(res.msg);
+                        toast.show();
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                    }
+                })
+            });
+
         });
     </script>
 </body>

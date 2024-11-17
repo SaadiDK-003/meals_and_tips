@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2024 at 05:35 PM
+-- Generation Time: Nov 17, 2024 at 07:30 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -53,6 +53,22 @@ c.category_img
 FROM meal_plan mp
 INNER JOIN categories c
 WHERE mp.cat_id=c.id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_meal_plans_by_ids` (IN `meal_ids` TEXT)  SELECT
+mp.id AS 'mp_id',
+mp.meal_desc,
+mp.breakfast_time,
+mp.breakfast_meal,
+mp.snack_time,
+mp.snack_meal,
+mp.lunch_time,
+mp.lunch_meal,
+mp.dinner_time,
+mp.dinner_meal,
+c.category_name
+FROM meal_plan mp
+INNER JOIN categories c ON mp.cat_id = c.id
+WHERE FIND_IN_SET(mp.id, meal_ids) > 0$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_approved` ()  SELECT
 r.id AS 'recipe_id',
@@ -288,7 +304,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`, `role`, `status`, `fav_recipes`, `fav_meals`) VALUES
 (1, 'admin', 'admin@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'admin', '0', NULL, NULL),
-(2, 'user', 'user@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'user', '0', '', NULL),
+(2, 'user', 'user@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'user', '0', '', ''),
 (3, 'nutritionist', 'nutritionist@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL, NULL),
 (4, 'nutritionist1', 'nutritionist1@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL, NULL);
 

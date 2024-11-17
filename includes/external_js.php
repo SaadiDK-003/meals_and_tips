@@ -8,6 +8,12 @@
 <script src="https://cdn.datatables.net/responsive/3.0.3/js/responsive.bootstrap5.js"></script>
 
 <script>
+    // Toast init
+    const toastEl = document.querySelector('.toast');
+    const toast = new bootstrap.Toast(toastEl, {
+        autohide: true,
+    });
+
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)

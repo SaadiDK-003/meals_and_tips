@@ -216,13 +216,14 @@ body {
     }
   }
 
-  &#meals_plan {
-    .content {
+  &#meals_plan,
+  &#userDashboard {
+    .content_meal {
       .toggle_btn {
         right: 15px;
         top: 20px;
       }
-      .add_fav {
+      .add_fav_meal {
         top: 20px;
         right: 60px;
       }
@@ -237,7 +238,7 @@ body {
               grid-column: 2;
               &::before,
               &::after {
-                content: '';
+                content: "";
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);

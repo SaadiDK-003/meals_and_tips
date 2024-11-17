@@ -11,11 +11,12 @@ endif;
 if (isset($_POST['fav_id']) && !isset($_POST['del_id'])):
 
     $fav_id = $_POST['fav_id'];
-    $usrID = $_POST['usrID'];
+    $table_column = $_POST['table_column'];
+    $usrID = $userID;
 
-    $result = $db->query("SELECT `fav_recipes` FROM `users` WHERE `id` = '$usrID'");
+    $result = $db->query("SELECT `$table_column` FROM `users` WHERE `id` = '$usrID'");
     $cur_val = mysqli_fetch_object($result);
-    $current_value = $cur_val->fav_recipes;
+    $current_value = $cur_val->$table_column;
 
     $fav_array = $current_value ? explode(',', trim($current_value, ',')) : [];
 
@@ -25,7 +26,7 @@ if (isset($_POST['fav_id']) && !isset($_POST['del_id'])):
 
         $new_value = implode(',', $fav_array);
 
-        $upd_fav_Q = $db->query("UPDATE `users` SET `fav_recipes`='$new_value' WHERE `id`='$usrID'");
+        $upd_fav_Q = $db->query("UPDATE `users` SET `$table_column`='$new_value' WHERE `id`='$usrID'");
         if ($upd_fav_Q) {
             echo json_encode(["class_" => "text-bg-danger", "msg" => "Deleted Successfully.", "status" => "success"]);
         } else {

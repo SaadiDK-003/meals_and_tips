@@ -256,12 +256,6 @@ if ($userRole != 'admin') {
     <script>
         $(document).ready(function() {
 
-            // Toast init
-            const toastEl = document.querySelector('.toast');
-            const toast = new bootstrap.Toast(toastEl, {
-                autohide: true,
-            });
-
             // DataTable
             new DataTable('#example', {
                 ordering: false,
