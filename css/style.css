@@ -190,6 +190,9 @@ body#meals_plan .content_meal .time_plan_wrapper, body#userDashboard .content_me
   overflow: hidden;
   height: 0;
 }
+body#meals_plan .content_meal .time_plan_wrapper .meal_description, body#userDashboard .content_meal .time_plan_wrapper .meal_description {
+  grid-column: 1/4;
+}
 @media (min-width: 768.1px) {
   body#meals_plan .content_meal .time_plan_wrapper .time_plan:last-child, body#userDashboard .content_meal .time_plan_wrapper .time_plan:last-child {
     position: relative;

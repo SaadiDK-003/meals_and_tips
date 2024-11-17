@@ -166,8 +166,8 @@ if ($userRole != 'nutritionist') {
                     <div class="row">
                         <div class="col-12 col-md-6 mb-3">
                             <div class="form-group">
-                                <label for="meal_desc">Meal Description</label>
-                                <input name="meal_desc" id="meal_desc" required class="form-control">
+                                <label for="plan_title">Meal Plan Title</label>
+                                <input name="plan_title" id="plan_title" required class="form-control">
                             </div>
                         </div>
                         <div class="col-12 col-md-6 mb-3">
@@ -176,6 +176,12 @@ if ($userRole != 'nutritionist') {
                                 <select name="cat_id" id="cat_id" class="form-select" required>
                                     <?= get_categories('categories'); ?>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="form-group">
+                                <label for="meal_desc">Meal Plan Description</label>
+                                <input name="meal_desc" id="meal_desc" required class="form-control">
                             </div>
                         </div>
                         <!-- Breakfast -->

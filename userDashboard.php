@@ -65,10 +65,11 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
             ?>
                     <div class="col-12 mb-3">
                         <div class="content_meal bg-white rounded p-3 position-relative">
-                            <h3 class="mb-0 text-secondary"><?= $list_meals->meal_desc ?> | <span class="btn btn-secondary"><?= $list_meals->category_name ?></span></h3>
+                            <h3 class="mb-0 text-secondary"><?= $list_meals->plan_title ?> | <span class="btn btn-secondary"><?= $list_meals->category_name ?></span></h3>
                             <a href="#!" data-id="<?= $list_meals->mp_id ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove From Favorite" data-bs-offset="-40,5" data-bs-trigger="hover" class="position-absolute btn btn-sm btn-danger add_fav_meal btn-meal-remove"><i class="fas fa-trash"></i></a>
                             <a href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Expand or Collapse" data-bs-offset="45,5" data-bs-trigger="hover" class="position-absolute btn btn-sm btn-success toggle_btn"><i class="fas fa-plus"></i></a>
                             <div class="time_plan_wrapper d-grid gap-2 text-center">
+                                <p class="meal_description"><?= $list_meals->meal_desc ?></p>
                                 <div class="time_plan alert alert-secondary mb-0 p-1">
                                     <p class="mb-0"><strong>Breakfast Time:</strong></p>
                                     <p class="mb-0"><?= date('h:i A', strtotime($list_meals->breakfast_time)); ?></p>

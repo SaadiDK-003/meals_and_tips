@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2024 at 07:30 PM
+-- Generation Time: Nov 17, 2024 at 07:43 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -39,6 +39,7 @@ WHERE ec.nutritionist_id=u.id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_meal_plans` ()  SELECT
 mp.id AS 'mp_id',
+mp.plan_title,
 mp.meal_desc,
 mp.breakfast_time,
 mp.breakfast_meal,
@@ -56,6 +57,7 @@ WHERE mp.cat_id=c.id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_meal_plans_by_ids` (IN `meal_ids` TEXT)  SELECT
 mp.id AS 'mp_id',
+mp.plan_title,
 mp.meal_desc,
 mp.breakfast_time,
 mp.breakfast_meal,
@@ -234,6 +236,7 @@ INSERT INTO `edu_content` (`id`, `edu_title`, `edu_image`, `edu_pdf`, `edu_link`
 
 CREATE TABLE `meal_plan` (
   `id` int(11) NOT NULL,
+  `plan_title` varchar(255) NOT NULL,
   `meal_desc` text NOT NULL,
   `cat_id` int(11) NOT NULL,
   `breakfast_time` time NOT NULL,
@@ -250,9 +253,10 @@ CREATE TABLE `meal_plan` (
 -- Dumping data for table `meal_plan`
 --
 
-INSERT INTO `meal_plan` (`id`, `meal_desc`, `cat_id`, `breakfast_time`, `breakfast_meal`, `snack_time`, `snack_meal`, `lunch_time`, `lunch_meal`, `dinner_time`, `dinner_meal`) VALUES
-(4, 'For Blood Pressure People Healthy Diet', 1, '07:00:00', 'Eat one boil egg, take 1 cup of Milk, take 2 slices of toast.', '11:30:00', 'Eat some junk food hehe.', '15:30:00', 'Drink Banana Shake, Eat Samosa and chicken roll.', '21:00:00', 'Eat what ever you like.'),
-(6, 'Et occaecat laudanti', 1, '07:50:00', 'Quia corporis velit', '13:27:00', 'Dolorem aspernatur v', '15:00:00', 'Cumque amet et eaqu', '23:22:00', 'Exercitationem labor');
+INSERT INTO `meal_plan` (`id`, `plan_title`, `meal_desc`, `cat_id`, `breakfast_time`, `breakfast_meal`, `snack_time`, `snack_meal`, `lunch_time`, `lunch_meal`, `dinner_time`, `dinner_meal`) VALUES
+(4, 'For Blood Pressure People Healthy Diet', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 1, '07:00:00', 'Eat one boil egg, take 1 cup of Milk, take 2 slices of toast.', '11:30:00', 'Eat some junk food hehe.', '15:30:00', 'Drink Banana Shake, Eat Samosa and chicken roll.', '21:00:00', 'Eat what ever you like.'),
+(6, 'Et occaecat laudanti', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', 1, '07:50:00', 'Quia corporis velit', '13:27:00', 'Dolorem aspernatur v', '15:00:00', 'Cumque amet et eaqu', '23:22:00', 'Exercitationem labor'),
+(7, 'Et eu velit reicien', 'Alias dolore dolorem', 2, '20:59:00', 'Dolores pariatur Do', '09:34:00', 'Esse corporis est ', '20:33:00', 'Adipisicing corporis', '22:18:00', 'Aut itaque debitis s');
 
 -- --------------------------------------------------------
 
@@ -304,7 +308,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`, `role`, `status`, `fav_recipes`, `fav_meals`) VALUES
 (1, 'admin', 'admin@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'admin', '0', NULL, NULL),
-(2, 'user', 'user@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'user', '0', '', ''),
+(2, 'user', 'user@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'user', '0', '', '7,4'),
 (3, 'nutritionist', 'nutritionist@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL, NULL),
 (4, 'nutritionist1', 'nutritionist1@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL, NULL);
 
@@ -388,7 +392,7 @@ ALTER TABLE `edu_content`
 -- AUTO_INCREMENT for table `meal_plan`
 --
 ALTER TABLE `meal_plan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `recipes`

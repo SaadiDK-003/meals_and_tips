@@ -24,10 +24,13 @@ require_once 'core/database.php';
             while ($mp_list = mysqli_fetch_object($get_mp_Q)): ?>
                 <div class="col-12 mb-3">
                     <div class="content_meal bg-white rounded p-3 position-relative">
-                        <h3 class="mb-0 text-secondary"><?= $mp_list->meal_desc ?> | <span class="btn btn-secondary"><?= $mp_list->category_name ?></span></h3>
-                        <a href="#!" data-id="<?= $mp_list->mp_id ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Favorite" data-bs-offset="-40,5" data-bs-trigger="hover" class="position-absolute btn btn-sm btn-danger add_fav_meal"><i class="fas fa-star"></i></a>
+                        <h3 class="mb-0 text-secondary"><?= $mp_list->plan_title ?> | <span class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Category"><?= $mp_list->category_name ?></span></h3>
+                        <?php if ($userRole == 'user'): ?>
+                            <a href="#!" data-id="<?= $mp_list->mp_id ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Favorite" data-bs-offset="-40,5" data-bs-trigger="hover" class="position-absolute btn btn-sm btn-danger add_fav_meal"><i class="fas fa-star"></i></a>
+                        <?php endif; ?>
                         <a href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Expand or Collapse" data-bs-offset="45,5" data-bs-trigger="hover" class="position-absolute btn btn-sm btn-success toggle_btn"><i class="fas fa-plus"></i></a>
                         <div class="time_plan_wrapper d-grid gap-2 text-center">
+                            <p class="meal_description"><?= $mp_list->meal_desc ?></p>
                             <div class="time_plan alert alert-secondary mb-0 p-1">
                                 <p class="mb-0"><strong>Breakfast Time:</strong></p>
                                 <p class="mb-0"><?= date('h:i A', strtotime($mp_list->breakfast_time)); ?></p>
