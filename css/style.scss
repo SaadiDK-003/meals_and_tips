@@ -230,14 +230,9 @@ body {
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         overflow: hidden;
         height: 0;
-        // transition: all 0.5s ease;
         .time_plan {
           @include responsive("desktop") {
-            &:not(:nth-child(3)) {
-              // border-right: 1px solid #ddd;
-            }
             &:last-child {
-              // border-left: 1px solid #ddd;
               position: relative;
               grid-column: 2;
               &::before,
