@@ -13,7 +13,7 @@ if (isset($_POST['username']) && isset($_POST['email'])) {
         $dupCheckQ = $db->query("SELECT id FROM `users` WHERE `username`='$newUsername' AND `id` != '$userID'");
 
         if (mysqli_num_rows($dupCheckQ) > 0) {
-            echo json_encode(["class_" => "d-block alert alert-danger", "msg" => "Username already taken by another user.", "status" => "error"]);
+            echo json_encode(["class_" => "d-block alert alert-danger", "msg" => "Username already taken by another person.", "status" => "error"]);
             exit;
         }
     }
@@ -23,7 +23,7 @@ if (isset($_POST['username']) && isset($_POST['email'])) {
         $dupCheckQ = $db->query("SELECT id FROM `users` WHERE `email`='$newEmail' AND `id` != '$userID'");
 
         if (mysqli_num_rows($dupCheckQ) > 0) {
-            echo json_encode(["class_" => "d-block alert alert-danger", "msg" => "Email already taken by another user.", "status" => "error"]);
+            echo json_encode(["class_" => "d-block alert alert-danger", "msg" => "Email already taken by another person.", "status" => "error"]);
             exit;
         }
     }

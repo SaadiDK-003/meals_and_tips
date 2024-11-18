@@ -22,10 +22,11 @@ if ($userRole != 'nutritionist') {
 
     <div class="container mx-auto mt-5 min-h-800">
         <div class="row">
-            <div class="tab-buttons col-12 d-flex gap-3 justify-content-center">
+            <div class="tab-buttons col-12 d-flex gap-3">
                 <a href="#!" class="btn btn-primary active">Add Recipes</a>
                 <a href="#!" class="btn btn-secondary">Add Meal Plan</a>
                 <a href="#!" class="btn text-white btn-custom-green">Add Educational Content</a>
+                <a href="./profile.php" class="btn btn-primary ms-auto">My Profile</a>
             </div>
         </div>
         <div class="row content-wrapper">
@@ -347,7 +348,7 @@ if ($userRole != 'nutritionist') {
             }
 
             // Tab Work
-            $(document).on("click", ".tab-buttons a", function(e) {
+            $(document).on("click", ".tab-buttons a:not(:last-child)", function(e) {
                 e.preventDefault();
                 $(this).addClass("active").siblings().removeClass("active");
                 let index = $(this).index() + 1;
