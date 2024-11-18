@@ -20,6 +20,11 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
     <?php include_once 'includes/header.php'; ?>
 
     <div class="container mx-auto my-5 min-h-800 list-wrapper">
+        <div class="row">
+            <div class="col-12 d-flex align-items-center justify-content-end">
+                <a href="./profile.php" class="btn btn-primary">My Profile</a>
+            </div>
+        </div>
         <!-- Favorite Recipes -->
         <div class="row">
             <div class="col-12 mb-3">
@@ -52,7 +57,7 @@ if (!isLoggedin() || $userRole == 'nutritionist') {
             $list_recipes_Q->close();
             $db->next_result(); ?>
         </div>
-
+        <hr>
         <!-- Favorite Meal Plans -->
         <div class="row">
             <div class="col-12 mb-3">

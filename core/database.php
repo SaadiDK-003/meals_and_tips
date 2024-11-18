@@ -8,6 +8,7 @@ $userID = '';
 $userName = '';
 $userEmail = '';
 $userPhone = '';
+$userPwd = '';
 $userRole = '';
 $fav_recipes = '';
 $fav_meals = '';
@@ -18,6 +19,7 @@ if (isset($_SESSION['user'])) {
     $userName = $userData->username;
     $userEmail = $userData->email;
     $userPhone = $userData->phone;
+    $userPwd = $userData->password;
     $userRole = $userData->role;
     $fav_recipes = $userData->fav_recipes;
     $fav_meals = $userData->fav_meals;

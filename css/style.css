@@ -225,7 +225,7 @@ body footer {
   align-items: center;
   justify-content: center;
 }
-body#home footer, body#recipes_list footer, body#edu_list footer, body#meals_plan footer {
+body#home footer, body#recipes_list footer, body#edu_list footer, body#meals_plan footer, body#user-profile footer {
   position: fixed;
   bottom: 0;
   left: 0;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2024 at 07:43 PM
+-- Generation Time: Nov 18, 2024 at 10:22 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -308,7 +308,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`, `role`, `status`, `fav_recipes`, `fav_meals`) VALUES
 (1, 'admin', 'admin@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'admin', '0', NULL, NULL),
-(2, 'user', 'user@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'user', '0', '', '7,4'),
+(2, 'user', 'user@gmail.com', '057696787899', '4297f44b13955235245b2497399d7a93', 'user', '0', '', ''),
 (3, 'nutritionist', 'nutritionist@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL, NULL),
 (4, 'nutritionist1', 'nutritionist1@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL, NULL);
 
