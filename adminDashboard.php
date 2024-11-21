@@ -23,8 +23,9 @@ if ($userRole != 'admin') {
     <div class="container mx-auto mt-5 min-h-800">
         <div class="row">
             <div class="tab-buttons col-12 d-flex gap-3 justify-content-center">
-                <a href="#!" class="btn btn-secondary">Approve Recipes</a>
-                <a href="#!" class="btn btn-primary active">Add Categories</a>
+                <a href="#!" class="btn btn-secondary active">Approve Recipes</a>
+                <a href="#!" class="btn btn-primary">Add Categories</a>
+                <a href="#!" class="btn btn-primary">All Users</a>
             </div>
         </div>
         <div class="row content-wrapper">
@@ -171,6 +172,48 @@ if ($userRole != 'admin') {
                     </div>
                 </div>
             </div>
+            <div class="col-12 col-md-8 mx-auto mt-4 d-none">
+                <div class="row">
+                    <!-- All Users List -->
+                    <div class="col-12 mb-5">
+                        <?php
+                        $getAllUsers_Q = $db->query("CALL `get_all_users`()");
+                        if (mysqli_num_rows($getAllUsers_Q) > 0):
+                        ?>
+                            <table id="example3" class="align-middle text-center table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($allUsers = mysqli_fetch_object($getAllUsers_Q)): ?>
+                                        <tr>
+                                            <td><?= $allUsers->username ?></td>
+                                            <td><?= $allUsers->email ?></td>
+                                            <td><?= $allUsers->phone ?></td>
+                                            <td>
+                                                <?php if ($allUsers->role == 'user'): ?>
+                                                    <span class="btn btn-primary">User</span>
+                                                <?php else: ?>
+                                                    <span class="btn btn-secondary">Nutritionist</span>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <h3 class="text-center alert alert-secondary">No Data Available.</h3>
+                        <?php endif;
+                        $getAllUsers_Q->close();
+                        $db->next_result(); ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -286,7 +329,7 @@ if ($userRole != 'admin') {
                     width: '5%'
                 }]
             });
-            new DataTable('#example2', {
+            new DataTable('#example2,#example3', {
                 ordering: false
             });
 
