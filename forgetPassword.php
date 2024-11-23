@@ -10,25 +10,25 @@ if (isLoggedin()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= TITLE ?> | Login</title>
+    <title><?= TITLE ?> | Forget Password</title>
     <?php include_once 'includes/external_css.php'; ?>
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 
-<body id="login">
+<body id="forgetPassword">
 
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-3 mx-auto">
                 <?php
-                if (isset($_POST['email']) && isset($_POST['password'])):
-                    echo login($_POST['email'], $_POST['password']);
+                if (isset($_POST['email']) && isset($_POST['phone'])):
+                    echo forgetPassword($_POST['email'], $_POST['phone']);
                 endif;
                 ?>
                 <form action="" method="post">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="text-center">Login</h2>
+                            <h2 class="text-center">Forget Password</h2>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group">
@@ -38,18 +38,17 @@ if (isLoggedin()) {
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="password" required class="form-control">
+                                <label for="phone">Phone</label>
+                                <input type="text" name="phone" id="phone" required class="form-control">
                             </div>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group d-flex align-items-center justify-content-between">
-                                <a class="btn btn-success" href="register.php">REGISTER</a>
+                                <a class="btn btn-success" href="login.php">LOGIN</a>
                                 <button type="submit" name="submit" id="submit" class="btn btn-primary">
-                                    LOGIN
+                                    SUBMIT
                                 </button>
                             </div>
-                            <a href="./forgetPassword.php" class="d-block text-center btn btn-sm btn-secondary mt-4 text-decoration-none">Forget Password</a>
                             <a href="./" class="d-block text-center mt-4 text-decoration-none">Back to home page.</a>
                         </div>
                     </div>

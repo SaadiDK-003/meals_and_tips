@@ -32,6 +32,7 @@ if ($userRole != 'nutritionist') {
         <div class="row content-wrapper">
             <!-- RECIPES SECTION -->
             <div class="col-12 mx-auto mt-4">
+                <!-- Recipe Form -->
                 <div class="row">
                     <div class="col-12 col-md-8 mx-auto mt-4">
                         <span class="showCatMsg"></span>
@@ -82,6 +83,7 @@ if ($userRole != 'nutritionist') {
                         </form>
                     </div>
                 </div>
+                <!-- Recipes Table -->
                 <div class="row mt-5">
                     <!-- Approved Recipes List -->
                     <div class="col-12 mb-3">
@@ -97,6 +99,7 @@ if ($userRole != 'nutritionist') {
                                         <th>Ingredients</th>
                                         <th>Instructions</th>
                                         <th>Recipe Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -105,11 +108,18 @@ if ($userRole != 'nutritionist') {
                                             <td><?= $recipe_list->recipe_title ?></td>
                                             <td><?= $recipe_list->ingredients ?></td>
                                             <td><span title="<?= $recipe_list->instructions ?>" class="line-clamp-1"><?= $recipe_list->instructions ?></span></td>
-                                            <td>
+                                            <td class="text-center">
                                                 <?php if ($recipe_list->recipe_status == '0'): ?>
                                                     <span class="btn btn-secondary">In-Review</span>
                                                 <?php else: ?>
                                                     <span class="btn btn-success">Approved</span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?php if ($recipe_list->recipe_status == '0'): ?>
+                                                    <a href="#!" data-bs-toggle="modal" data-bs-target="#editRecipeModal" data-id="<?= $recipe_list->recipe_id ?>" class="btn btn-sm btn-primary btn-edit-recipe">Edit</a>
+                                                <?php else: ?>
+                                                    ---
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
@@ -319,6 +329,72 @@ if ($userRole != 'nutritionist') {
     </div>
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="editRecipeModal" tabindex="-1" aria-labelledby="editRecipeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <span id="showEditRecipeMsg"></span>
+                <form id="edit_recipe_form" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editRecipeLabel">Edit Recipe</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="edit_recipe_title">Recipe Tile</label>
+                                    <input type="text" class="form-control" name="edit_recipe_title" id="edit_recipe_title" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="edit_ingredients">Ingredients</label>
+                                    <input type="text" class="form-control" name="edit_ingredients" id="edit_ingredients" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <div class="row">
+                                    <div class="col-2 d-flex align-items-end">
+                                        <img src="" id="show_img" alt="">
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="form-group">
+                                            <label for="edit_recipe_img">Recipe Image <i class="fas fa-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="leave it, if you don't want to change the image."></i></label>
+                                            <input type="file" class="form-control" name="edit_recipe_img" id="edit_recipe_img">
+                                            <input type="hidden" name="old_img" id="old_img">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="edit_category_type">Select Category</label>
+                                    <select type="text" name="edit_category_type" id="edit_category_type" required class="form-select">
+                                        <option value="" selected hidden></option>
+                                        <?= get_categories('categories'); ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="edit_instructions">Instructions</label>
+                                    <textarea rows="3" class="form-control" name="edit_instructions" id="edit_instructions" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <input type="hidden" name="e_recipe_id" id="e_recipe_id">
+                        <button type="submit" name="submitRecipe" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 
     <?php include_once 'includes/footer.php'; ?>
     <?php include 'includes/external_js.php'; ?>
@@ -328,7 +404,15 @@ if ($userRole != 'nutritionist') {
         $(document).ready(function() {
 
             // Table Work
-            const options = {
+            const options1 = {
+                ordering: false,
+                "columns": [{
+                    width: "12%"
+                }, null, null, {
+                    width: "10%"
+                }, null]
+            }
+            const options2 = {
                 ordering: false,
                 "columns": [{
                     width: "12%"
@@ -340,11 +424,11 @@ if ($userRole != 'nutritionist') {
             let tLength1 = $("#example1").length;
 
             if (tLength > 0) {
-                new DataTable('#example', options);
+                new DataTable('#example', options1);
             }
 
             if (tLength1 > 0) {
-                new DataTable('#example1', options);
+                new DataTable('#example1', options2);
             }
 
             // Tab Work
@@ -355,6 +439,65 @@ if ($userRole != 'nutritionist') {
                 $(`.content-wrapper > div:nth-child(${index})`).removeClass("d-none").siblings().addClass("d-none");
             });
 
+            // Check Modal Close
+            $("#editRecipeModal").on("hidden.bs.modal", function() {
+                // put your default event here
+                $("#edit_recipe_img").val('');
+            });
+
+            // Fetch Recipe Info
+            $(document).on('click', '.btn-edit-recipe', function(e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                $.ajax({
+                    url: "ajax/nutritionist.php",
+                    method: "post",
+                    data: {
+                        edit_recipe_id: id
+                    },
+                    success: function(response) {
+                        let res = JSON.parse(response);
+                        console.log(res);
+                        $("#e_recipe_id").val(res.recipe_id);
+                        $("#edit_recipe_title").val(res.recipe_title);
+                        $("#edit_ingredients").val(res.ingredients);
+                        $("#old_img").val(res.recipe_img);
+                        $("#show_img").attr('src', './img/recipe/' + res.recipe_img);
+                        $("#edit_category_type option:selected").val(res.cat_id);
+                        $("#edit_category_type option:selected").text(res.category_name);
+                        $("#edit_instructions").val(res.instructions);
+                    }
+                })
+            });
+
+            // Edit Recipe Form
+            $("#edit_recipe_form").on("submit", function(e) {
+                e.preventDefault();
+                let formData = new FormData(this);
+                $.ajax({
+                    url: "ajax/nutritionist.php",
+                    method: "post",
+                    data: formData,
+                    success: function(response) {
+                        console.log(response);
+                        let res = JSON.parse(response);
+                        console.log(res)
+                        $("#showEditRecipeMsg").html(res.msg).addClass(res.class_);
+                        if (res.status === 'success') {
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1800);
+                        } else {
+                            setTimeout(() => {
+                                $("#showEditRecipeMsg").html('').removeClass(res.class_);
+                            }, 1500);
+                        }
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            });
 
             // Category Form Submit
             $("#recipe-form").on("submit", function(e) {

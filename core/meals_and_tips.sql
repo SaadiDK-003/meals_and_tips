@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2024 at 10:59 AM
+-- Generation Time: Nov 23, 2024 at 07:21 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -107,6 +107,19 @@ FROM recipes r
 INNER JOIN users u
 INNER JOIN categories c
 WHERE r.nutritionist_id=u.id AND r.cat_id=c.id AND r.recipe_status='1' AND r.id=recipe_id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_by_id` (IN `recipe_id` INT)  SELECT DISTINCT
+    r.id AS 'recipe_id',
+    r.recipe_title,
+    r.ingredients,
+    r.instructions,
+    r.recipe_status,
+    r.recipe_img,
+    c.id AS 'cat_id',
+    c.category_name
+FROM recipes r
+INNER JOIN categories c ON r.cat_id = c.id
+WHERE r.id = recipe_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipes_list_fav` (IN `recipe_ids` VARCHAR(255))  SELECT DISTINCT
     r.id AS 'recipe_id',
@@ -285,8 +298,8 @@ CREATE TABLE `recipes` (
 
 INSERT INTO `recipes` (`id`, `recipe_title`, `ingredients`, `instructions`, `nutritionist_id`, `cat_id`, `recipe_status`, `recipe_img`) VALUES
 (23, 'test_recipe_1', '1 cup salt, 2 cup oil', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 1, '1', 'red-forest-trees_.jpg'),
-(24, 'test111', '1 cup salt, 2 cup oil, etc...', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 2, '1', 'oii.jpg'),
-(25, 'Cumque dolores iure ', 'Similique dolorem ad', 'Quam velit incididun', 3, 2, '1', 'abc.png');
+(24, 'test111', '1 cup salt, 2 cup oil, etc...', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 2, '2', 'oii.jpg'),
+(25, 'Cumque dolores iure 123', 'Similique dolorem ad', 'Quam velit incididun', 3, 1, '1', 'edit_wp_mountain.jpg');
 
 -- --------------------------------------------------------
 

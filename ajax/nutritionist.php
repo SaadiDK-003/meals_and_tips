@@ -110,3 +110,57 @@ if (isset($_POST['meal_desc']) && isset($_POST['cat_id']) && isset($_POST['break
     }
 
 endif;
+
+
+if (isset($_POST['edit_recipe_id'])):
+    $recipe_id = $_POST['edit_recipe_id'];
+    $get_recipe_Q = $db->query("CALL `get_recipes_list_by_id`($recipe_id)");
+    $get_r_data = mysqli_fetch_object($get_recipe_Q);
+
+    $json = [
+        "recipe_id" => $get_r_data->recipe_id,
+        "recipe_title" => $get_r_data->recipe_title,
+        "ingredients" => $get_r_data->ingredients,
+        "instructions" => $get_r_data->instructions,
+        "recipe_img" => $get_r_data->recipe_img,
+        "cat_id" => $get_r_data->cat_id,
+        "category_name" => $get_r_data->category_name
+    ];
+
+    echo json_encode($json);
+endif;
+
+
+if (isset($_POST['edit_recipe_title']) && isset($_POST['edit_ingredients']) && isset($_POST['old_img'])):
+    $targetDir = '../img/recipe/';
+    if (!empty($_FILES['edit_recipe_img']['name'])) {
+
+        $fileName = 'edit_' . basename($_FILES["edit_recipe_img"]["name"]);
+        $targetFilePath = $targetDir . $fileName;
+        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+        $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'webp');
+
+        if (in_array($fileType, $allowTypes)) {
+            if (move_uploaded_file($_FILES["edit_recipe_img"]["tmp_name"], $targetFilePath)) {
+                $_POST['old_img'] = $fileName;
+            }
+        }
+    }
+
+    $re_id =  $_POST['e_recipe_id'];
+    $rt =  $_POST['edit_recipe_title'];
+    $r_ing =  $_POST['edit_ingredients'];
+    $rc =  $_POST['edit_category_type'];
+    $r_ins =  $_POST['edit_instructions'];
+    $final_img =  $_POST['old_img'];
+
+    $edit_R_Q = $db->query("UPDATE `recipes` SET `recipe_title`='$rt',`ingredients`='$r_ing',`instructions`='$r_ins',`cat_id`='$rc',`recipe_img`='$final_img' WHERE `id`='$re_id'");
+
+    if ($edit_R_Q) {
+        echo json_encode(["class_" => "d-block alert alert-success text-center", "msg" => "Recipe Edit Successfully.", "status" => "success"]);
+    } else {
+        echo json_encode(["class_" => "d-block alert alert-danger text-center", "msg" => "Something went wrong.", "status" => "error"]);
+    }
+
+endif;
