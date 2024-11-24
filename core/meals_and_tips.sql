@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2024 at 07:21 PM
+-- Generation Time: Nov 24, 2024 at 10:40 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -40,6 +40,18 @@ u.username
 FROM edu_content ec
 INNER JOIN users u
 WHERE ec.nutritionist_id=u.id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_edu_list_by_id` (IN `user_id` INT)  SELECT
+ec.id AS 'edu_id',
+ec.edu_title,
+ec.edu_image,
+ec.edu_pdf,
+ec.edu_link,
+ec.edu_desc,
+u.username
+FROM edu_content ec
+INNER JOIN users u
+WHERE ec.nutritionist_id=u.id AND ec.nutritionist_id=user_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_meal_plans` ()  SELECT
 mp.id AS 'mp_id',
@@ -297,9 +309,9 @@ CREATE TABLE `recipes` (
 --
 
 INSERT INTO `recipes` (`id`, `recipe_title`, `ingredients`, `instructions`, `nutritionist_id`, `cat_id`, `recipe_status`, `recipe_img`) VALUES
-(23, 'test_recipe_1', '1 cup salt, 2 cup oil', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 1, '1', 'red-forest-trees_.jpg'),
+(23, 'test_recipe_111', '1 cup salt, 2 cup oil', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 1, '1', 'red-forest-trees_.jpg'),
 (24, 'test111', '1 cup salt, 2 cup oil, etc...', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 3, 2, '2', 'oii.jpg'),
-(25, 'Cumque dolores iure 123', 'Similique dolorem ad', 'Quam velit incididun', 3, 1, '1', 'edit_wp_mountain.jpg');
+(25, 'Cumque dolores iure 123555', 'Similique dolorem ad', 'Quam velit incididun', 3, 1, '2', 'edit_wp_mountain.jpg');
 
 -- --------------------------------------------------------
 
@@ -325,7 +337,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`, `role`, `status`, `fav_recipes`, `fav_meals`) VALUES
 (1, 'admin', 'admin@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'admin', '0', NULL, NULL),
-(2, 'user', 'user@gmail.com', '057696787899', '4297f44b13955235245b2497399d7a93', 'user', '0', '', ''),
+(2, 'user123', 'user@gmail.com', '057696787899', 'a74c9f77c78cd8034be72cca4d49f5f0', 'user', '0', '', ''),
 (3, 'nutritionist', 'nutritionist@gmail.com', '5123152121312', '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL, NULL),
 (4, 'nutritionist1', 'nutritionist1@gmail.com', NULL, '4297f44b13955235245b2497399d7a93', 'nutritionist', '0', NULL, NULL);
 

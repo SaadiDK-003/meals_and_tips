@@ -152,7 +152,7 @@ if (isset($_POST['edit_recipe_title']) && isset($_POST['edit_ingredients']) && i
     $rt =  $_POST['edit_recipe_title'];
     $r_ing =  $_POST['edit_ingredients'];
     $rc =  $_POST['edit_category_type'];
-    $r_ins =  $_POST['edit_instructions'];
+    $r_ins =  mysqli_real_escape_string($db, $_POST['edit_instructions']);
     $final_img =  $_POST['old_img'];
 
     $edit_R_Q = $db->query("UPDATE `recipes` SET `recipe_title`='$rt',`ingredients`='$r_ing',`instructions`='$r_ins',`cat_id`='$rc',`recipe_img`='$final_img' WHERE `id`='$re_id'");

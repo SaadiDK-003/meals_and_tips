@@ -323,6 +323,45 @@ if ($userRole != 'nutritionist') {
                             </div>
                         </form>
                     </div>
+                    <!-- List Of Edu Content -->
+                    <div class="col-12 mb-5">
+                        <h2 class="my-3">Educational Content List</h2>
+                        <?php
+                        $getEduList_Q = $db->query("CALL `get_edu_list_by_id`($userID)");
+                        if (mysqli_num_rows($getEduList_Q) > 0):
+                        ?>
+                            <table id="example3" class="align-middle table text-center table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Image</th>
+                                        <th>Description</th>
+                                        <th>PDF</th>
+                                        <th>YouTube Link</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($edu_list_ = mysqli_fetch_object($getEduList_Q)): ?>
+                                        <tr>
+                                            <td><?= $edu_list_->edu_title ?></td>
+                                            <td><img src="./img/edu/<?= $edu_list_->edu_image ?>" width="80" class="mx-auto" height="80" alt="edu_img_<?= $edu_list_->edu_id ?>"></td>
+                                            <td><span title="<?= $edu_list_->edu_desc ?>" class="line-clamp-1"><?= $edu_list_->edu_desc ?></span></td>
+                                            <td>
+                                                <a href="./pdf/<?= $edu_list_->edu_pdf ?>" class="btn btn-primary">Download PDF</a>
+                                            </td>
+                                            <td>
+                                                <a href="<?= $edu_list_->edu_link ?>" target="_blank" class="btn btn-danger"><i class="fab fa-youtube"></i></a>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <h3 class="alert alert-secondary text-center">No Data Available.</h3>
+                        <?php endif;
+                        $getEduList_Q->close();
+                        $db->next_result(); ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -420,6 +459,20 @@ if ($userRole != 'nutritionist') {
                     width: "10%"
                 }]
             }
+            const options3 = {
+                ordering: false,
+                "columns": [{
+                    width: "5%"
+                }, {
+                    width: '10%'
+                }, {
+                    width: '60%'
+                }, {
+                    width: "15%"
+                }, {
+                    width: '10%'
+                }]
+            }
             let tLength = $("#example").length;
             let tLength1 = $("#example1").length;
 
@@ -437,6 +490,12 @@ if ($userRole != 'nutritionist') {
                 $(this).addClass("active").siblings().removeClass("active");
                 let index = $(this).index() + 1;
                 $(`.content-wrapper > div:nth-child(${index})`).removeClass("d-none").siblings().addClass("d-none");
+
+                if (index === 3) {
+                    new DataTable('#example3', options3);
+                } else {
+                    $("#example3").DataTable().destroy();
+                }
             });
 
             // Check Modal Close
